@@ -1,0 +1,2078 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Misi Mekanik Pintar (Edisi STEM) - SK Kaingaran Tambunan</title>
+
+  <!-- Google Fonts: Chakra Petch (High-Tech STEM), Fredoka (Mesra Kanak-kanak) & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,600;0,700;1,700&family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            stem: ['"Chakra Petch"', 'system-ui', 'sans-serif'],
+            kids: ['Fredoka', 'system-ui', 'sans-serif'],
+            body: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif']
+          },
+          colors: {
+            stem: {
+              cyan: '#06B6D4',
+              neon: '#22D3EE',
+              emerald: '#10B981',
+              amber: '#F59E0B',
+              orange: '#FF6B35',
+              navy: '#0B132B',
+              dark: '#070D1E',
+              slate: '#1E293B',
+              blueprint: '#0C1E3C'
+            }
+          },
+          animation: {
+            'pulse-fast': 'pulse 1.2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'float-tech': 'floatTech 4s ease-in-out infinite',
+            'radar-sweep': 'radarSweep 5s linear infinite',
+            'spin-slow': 'spin 12s linear infinite'
+          },
+          keyframes: {
+            floatTech: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-6px)' }
+            },
+            radarSweep: {
+              '0%': { transform: 'rotate(0deg)' },
+              '100%': { transform: 'rotate(360deg)' }
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    body {
+      touch-action: manipulation;
+      user-select: none;
+      -webkit-user-select: none;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #070d1e;
+    }
+
+    /* Grid Cetak Biru STEM (Blueprint Grid Pattern) */
+    .stem-blueprint-grid {
+      background-size: 32px 32px;
+      background-image: 
+        linear-gradient(to right, rgba(34, 211, 238, 0.08) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(34, 211, 238, 0.08) 1px, transparent 1px);
+    }
+
+    /* Kad Kaca Makmal STEM (High-Tech Glassmorphism) */
+    .stem-glass-panel {
+      background: rgba(11, 19, 43, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 2px solid rgba(34, 211, 238, 0.35);
+      box-shadow: 0 16px 36px -10px rgba(6, 182, 212, 0.25),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    }
+
+    .stem-hud-panel {
+      background: rgba(7, 13, 30, 0.9);
+      backdrop-filter: blur(12px);
+      border: 1.5px solid rgba(34, 211, 238, 0.4);
+      box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Bucu Konsol Robotik (Tech Corner Brackets) */
+    .tech-corners {
+      position: relative;
+    }
+    .tech-corners::before, .tech-corners::after {
+      content: '';
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-color: #22d3ee;
+      pointer-events: none;
+    }
+    .tech-corners::before {
+      top: -2px;
+      left: -2px;
+      border-top: 3px solid #22d3ee;
+      border-left: 3px solid #22d3ee;
+      border-top-left-radius: 6px;
+    }
+    .tech-corners::after {
+      bottom: -2px;
+      right: -2px;
+      border-bottom: 3px solid #22d3ee;
+      border-right: 3px solid #22d3ee;
+      border-bottom-right-radius: 6px;
+    }
+
+    /* Butang Taktil STEM 3D */
+    .stem-btn-3d {
+      transition: all 0.12s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+    }
+    .stem-btn-3d:active {
+      transform: translateY(3px);
+      box-shadow: 0 1px 0 transparent !important;
+    }
+
+    /* Pilihan Jawapan STEM */
+    .choice-card-stem {
+      transition: all 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .choice-card-stem:hover {
+      transform: translateY(-2px) scale(1.01);
+      border-color: #22d3ee;
+      box-shadow: 0 8px 20px -6px rgba(34, 211, 238, 0.3);
+    }
+    .choice-card-stem:active {
+      transform: translateY(2px) scale(0.99);
+    }
+
+    /* Jalur Kemajuan Litar Neon */
+    .circuit-glow {
+      box-shadow: 0 0 15px rgba(34, 211, 238, 0.5);
+    }
+
+    /* Skrolbar */
+    .stem-scroll::-webkit-scrollbar {
+      width: 6px;
+    }
+    .stem-scroll::-webkit-scrollbar-track {
+      background: rgba(11, 19, 43, 0.5);
+    }
+    .stem-scroll::-webkit-scrollbar-thumb {
+      background: #06b6d4;
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="min-h-screen text-slate-100 antialiased overflow-x-hidden relative flex flex-col justify-between selection:bg-cyan-500 selection:text-white">
+
+  <!-- ================= LATAR BELAKANG: TINGKAP MAKMAL STEM MENGHADAP FAJAR TAMBUNAN ================= -->
+  <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+    
+    <!-- Lapisan Foto Fajar Sebenar (Boleh Dimuat Naik) -->
+    <div id="dynamicBackgroundPhoto" class="absolute inset-0 bg-cover bg-center transition-all duration-700 opacity-60"></div>
+
+    <!-- Lukisan Vektor Fajar Banjaran Crocker (Lalai) -->
+    <svg id="svgDawnBackdrop" class="absolute inset-0 w-full h-full object-cover" viewBox="0 0 1440 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="skyGrad" x1="50%" y1="0%" x2="50%" y2="100%">
+          <stop offset="0%" stop-color="#081024" />
+          <stop offset="35%" stop-color="#1B1C4B" />
+          <stop offset="65%" stop-color="#7C2D12" />
+          <stop offset="85%" stop-color="#EA580C" />
+          <stop offset="100%" stop-color="#F59E0B" />
+        </linearGradient>
+        <radialGradient id="sunGlow" cx="50%" cy="65%" r="50%">
+          <stop offset="0%" stop-color="#FEF08A" stop-opacity="0.8" />
+          <stop offset="40%" stop-color="#F59E0B" stop-opacity="0.4" />
+          <stop offset="100%" stop-color="#081024" stop-opacity="0" />
+        </radialGradient>
+      </defs>
+
+      <rect width="1440" height="900" fill="url(#skyGrad)" />
+      <circle cx="720" cy="580" r="300" fill="url(#sunGlow)" />
+
+      <!-- Siluet Banjaran Crocker / Trusmadi -->
+      <path d="M-80 570 Q220 440 460 500 Q700 410 940 480 Q1220 420 1520 570 L1520 900 L-80 900 Z" fill="#0C152B" />
+      <path d="M-40 600 Q260 510 580 540 Q840 480 1100 530 Q1340 490 1480 610 L1480 900 L-40 900 Z" fill="#060C1A" />
+      <path d="M-20 680 C360 620 740 690 1120 650 C1360 620 1440 670 1460 700 L1460 900 L-20 900 Z" fill="#042F2E" fill-opacity="0.9" />
+    </svg>
+
+    <!-- Lapisan Grid Cetak Biru STEM & HUD Grid Lines -->
+    <div class="absolute inset-0 stem-blueprint-grid opacity-35 pointer-events-none"></div>
+
+    <!-- Zarah Tenaga Biru Neon (Floating Energy Particles) -->
+    <canvas id="stemEnergyCanvas" class="absolute inset-0 w-full h-full opacity-60 pointer-events-none"></canvas>
+
+    <!-- Garisan Imbasan Radar (Subtle Sweep) -->
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-500/5 to-transparent h-48 w-full animate-pulse-fast pointer-events-none"></div>
+  </div>
+
+  <!-- ================= PALANG NAVIGASI STEM MAKMAL ================= -->
+  <header class="relative z-30 px-3 sm:px-6 pt-3 pb-2 w-full max-w-6xl mx-auto flex items-center justify-between">
+    
+    <!-- Logo Makmal STEM & SK Kaingaran -->
+    <div class="flex items-center space-x-3">
+      <div class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-cyan-400 via-blue-600 to-indigo-700 p-0.5 shadow-lg shadow-cyan-500/30 flex items-center justify-center">
+        <div class="w-full h-full rounded-[10px] bg-slate-950 flex items-center justify-center text-xl sm:text-2xl relative overflow-hidden">
+          <span class="relative z-10">🔬</span>
+          <div class="absolute inset-0 bg-cyan-500/10 animate-pulse"></div>
+        </div>
+      </div>
+      <div>
+        <div class="flex items-center space-x-1.5">
+          <!-- 4 Lencana Tonggak STEM -->
+          <div class="flex items-center space-x-0.5">
+            <span class="px-1.5 py-0.2 rounded bg-cyan-500 text-slate-950 font-stem font-bold text-[9px] sm:text-[10px]" title="Science">S</span>
+            <span class="px-1.5 py-0.2 rounded bg-blue-500 text-white font-stem font-bold text-[9px] sm:text-[10px]" title="Technology">T</span>
+            <span class="px-1.5 py-0.2 rounded bg-amber-500 text-slate-950 font-stem font-bold text-[9px] sm:text-[10px]" title="Engineering">E</span>
+            <span class="px-1.5 py-0.2 rounded bg-emerald-500 text-slate-950 font-stem font-bold text-[9px] sm:text-[10px]" title="Mathematics">M</span>
+          </div>
+          <span class="inline-block px-2 py-0.2 rounded bg-cyan-900/60 text-cyan-300 font-stem text-[10px] border border-cyan-500/40">
+            MAKMAL RBT &amp; SAINS TAHAP 2
+          </span>
+        </div>
+        <h1 class="text-sm sm:text-base font-stem font-bold text-white tracking-wider flex items-center gap-1.5 mt-0.5">
+          <span class="text-cyan-400">SK KAINGARAN</span> TAMBUNAN
+          <span class="text-xs text-amber-400 hidden sm:inline">• Edisi Pertandingan STEM</span>
+        </h1>
+      </div>
+    </div>
+
+    <!-- Tindakan Konsol Atas -->
+    <div class="flex items-center space-x-2">
+      <!-- Muat Naik Gambar Pemandangan Fajar Sendiri -->
+      <button 
+        onclick="document.getElementById('schoolPhotoInput').click()" 
+        class="stem-btn-3d px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-cyan-300 font-stem text-xs font-bold border border-cyan-500/40 shadow-sm flex items-center space-x-1.5 backdrop-blur-md"
+        title="Muat naik foto latar belakang anda"
+      >
+        <span>📷</span>
+        <span class="hidden sm:inline">Foto Fajar</span>
+      </button>
+
+      <!-- Butang Papan Juara Kejohanan STEM -->
+      <button 
+        onclick="openLeaderboardModal()" 
+        class="stem-btn-3d px-3 sm:px-4 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-400 hover:to-orange-500 text-slate-950 font-stem text-xs sm:text-sm font-extrabold border-b-2 border-amber-700 shadow-md shadow-amber-500/30 flex items-center space-x-1.5"
+      >
+        <span>🏆</span>
+        <span>CARTA JUARA STEM</span>
+      </button>
+
+      <!-- Kawalan Audio Sintetik -->
+      <button 
+        id="soundToggleBtn" 
+        onclick="toggleSoundMute()" 
+        class="stem-btn-3d w-9 h-9 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-cyan-400 flex items-center justify-center font-bold text-sm border border-cyan-500/40 shadow-sm"
+        title="Buka / Bisu Audio"
+      >
+        🔊
+      </button>
+
+      <input type="file" id="schoolPhotoInput" accept="image/*" class="hidden" onchange="handleBackgroundUpload(event)">
+    </div>
+  </header>
+
+  <!-- ================= KANDUNGAN UTAMA PERMAINAN STEM ================= -->
+  <main class="relative z-20 flex-1 flex items-center justify-center px-3 sm:px-6 py-2 sm:py-4">
+    <div class="w-full max-w-4xl mx-auto">
+
+      <!-- ================= SKRIN 1: PENGKALAN MISI STEM (LANDING) ================= -->
+      <section id="screenLanding" class="stem-glass-panel rounded-3xl p-5 sm:p-8 text-center tech-corners relative overflow-hidden">
+        
+        <!-- Kesan Cahaya Laser Biru di Sisi -->
+        <div class="absolute -top-24 -right-24 w-60 h-60 bg-cyan-500/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-24 -left-24 w-60 h-60 bg-indigo-500/25 rounded-full blur-3xl pointer-events-none"></div>
+
+        <!-- Lencana Maskot Jurutera Cilik -->
+        <div class="inline-flex items-center justify-center mb-3">
+          <div class="relative">
+            <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-br from-cyan-400 via-blue-600 to-indigo-800 p-1 shadow-xl shadow-cyan-500/30 animate-float-tech flex items-center justify-center">
+              <div class="w-full h-full rounded-[14px] bg-slate-950 flex items-center justify-center text-4xl sm:text-5xl border border-cyan-400/50">
+                🤖
+              </div>
+            </div>
+            <div class="absolute -bottom-1 -right-1 bg-cyan-500 text-slate-950 font-stem font-bold px-1.5 py-0.5 rounded-md text-[10px] shadow-md border border-white">
+              STEM v2.5
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-1 mb-5">
+          <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-cyan-950/80 border border-cyan-400/50 text-cyan-300 font-stem text-xs font-semibold">
+            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+            <span>MODUL KEJURUTERAAN &amp; SAINS FIZIKAL</span>
+          </div>
+          <h2 class="text-2xl sm:text-4xl lg:text-5xl font-stem font-bold text-white tracking-wide leading-tight">
+            MISI MEKANIK PINTAR
+          </h2>
+          <p class="text-xs sm:text-sm font-body text-slate-300 max-w-xl mx-auto">
+            Selesaikan 10 diagnosis mesin kompleks yang rosak dan 10 cabaran reka cipta sains di Tambunan!
+          </p>
+        </div>
+
+        <!-- 2 Modul STEM (Bahagian 1 & Bahagian 2) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-2xl mx-auto mb-6 text-left">
+          
+          <!-- Modul 1 -->
+          <div class="p-3.5 sm:p-4 rounded-2xl bg-slate-900/80 border-2 border-cyan-500/40 hover:border-cyan-400 transition group shadow-lg">
+            <div class="flex items-start space-x-3">
+              <div class="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-400 text-cyan-300 font-stem font-bold text-lg flex items-center justify-center shrink-0">
+                ⚙️
+              </div>
+              <div>
+                <div class="flex items-center space-x-1.5">
+                  <span class="font-stem text-xs font-bold text-cyan-400">BAHAGIAN 1: KEJURUTERAAN</span>
+                  <span class="text-[9px] font-stem bg-cyan-950 text-cyan-300 px-1.5 py-0.2 rounded border border-cyan-500/30">10 Soalan</span>
+                </div>
+                <h4 class="font-stem text-sm font-bold text-white mt-0.5">Diagnostik Mesin Kompleks</h4>
+                <p class="text-[11px] font-body text-slate-300 leading-snug mt-0.5">
+                  Cari komponen mesin ringkas yang hilang agar basikal, kren, dan bicu berfungsi semula.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modul 2 -->
+          <div class="p-3.5 sm:p-4 rounded-2xl bg-slate-900/80 border-2 border-amber-500/40 hover:border-amber-400 transition group shadow-lg">
+            <div class="flex items-start space-x-3">
+              <div class="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-400 text-amber-300 font-stem font-bold text-lg flex items-center justify-center shrink-0">
+                💡
+              </div>
+              <div>
+                <div class="flex items-center space-x-1.5">
+                  <span class="font-stem text-xs font-bold text-amber-400">BAHAGIAN 2: APLIKASI SAINS</span>
+                  <span class="text-[9px] font-stem bg-amber-950 text-amber-300 px-1.5 py-0.2 rounded border border-amber-500/30">10 Soalan</span>
+                </div>
+                <h4 class="font-stem text-sm font-bold text-white mt-0.5">Penyelesaian Senario Nyata</h4>
+                <p class="text-[11px] font-body text-slate-300 leading-snug mt-0.5">
+                  Pilih mesin ringkas paling cekap daya untuk membantu urusan harian sekolah dan komuniti.
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Ruang Pendaftaran Nama & Kelas Murid -->
+        <div class="max-w-md mx-auto space-y-3">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-left">
+            
+            <div class="sm:col-span-2">
+              <label for="studentNameInput" class="block text-xs font-stem font-bold text-cyan-300 mb-1 flex items-center gap-1">
+                <span>✏️</span> NAMA JURUTERA CILIK:
+              </label>
+              <input 
+                type="text" 
+                id="studentNameInput" 
+                maxlength="25" 
+                placeholder="Taip nama anda..." 
+                class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border-2 border-cyan-500/50 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/40 outline-none font-stem text-sm text-cyan-100 placeholder:text-slate-500 shadow-inner transition"
+                onkeypress="if(event.key === 'Enter') startMission()"
+              >
+            </div>
+
+            <div>
+              <label for="studentClassSelect" class="block text-xs font-stem font-bold text-cyan-300 mb-1 flex items-center gap-1">
+                <span>🏫</span> KELAS:
+              </label>
+              <select 
+                id="studentClassSelect" 
+                class="w-full px-2.5 py-2.5 rounded-xl bg-slate-900 border-2 border-cyan-500/50 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/40 outline-none font-stem text-sm text-cyan-100 font-bold shadow-inner transition cursor-pointer"
+              >
+                <option value="6 Arif">6 Arif</option>
+                <option value="6 Cerdik">6 Cerdik</option>
+                <option value="5 Arif">5 Arif</option>
+                <option value="5 Cerdik">5 Cerdik</option>
+                <option value="4 Arif">4 Arif</option>
+                <option value="Terbuka">Terbuka</option>
+              </select>
+            </div>
+
+          </div>
+
+          <p id="nameErrorMsg" class="text-xs font-stem font-bold text-rose-400 hidden flex items-center justify-center gap-1">
+            <span>⚠️</span> Sila taip nama anda untuk merekod telemetry dan markah kejohanan!
+          </p>
+
+          <div class="flex flex-col sm:flex-row gap-2.5 pt-1">
+            <button 
+              onclick="startMission()" 
+              class="stem-btn-3d flex-1 py-3 px-6 rounded-xl bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-600 hover:from-cyan-300 hover:to-blue-400 text-slate-950 font-stem font-extrabold text-base border-b-4 border-blue-900 shadow-lg shadow-cyan-500/30 flex items-center justify-center space-x-2"
+            >
+              <span>⚡ MULA MISI STEM</span>
+            </button>
+
+            <button 
+              type="button" 
+              onclick="openLeaderboardModal()" 
+              class="stem-btn-3d py-3 px-5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-stem font-bold text-xs border border-amber-500/50 border-b-4 border-b-amber-700 shadow-sm flex items-center justify-center space-x-1.5"
+            >
+              <span>🏆 RANKING SEMASA</span>
+            </button>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- ================= SKRIN 2: KOKPIT OPERASI STEM (GAMEPLAY) ================= -->
+      <section id="screenGame" class="hidden space-y-3">
+        
+        <!-- Bar HUD Telemetri STEM -->
+        <div class="stem-hud-panel rounded-2xl px-3 sm:px-4 py-2.5 text-white flex items-center justify-between shadow-xl border border-cyan-500/40">
+          
+          <!-- Identiti Jurutera & Status Penderia -->
+          <div class="flex items-center space-x-2.5">
+            <div class="w-8 h-8 rounded-lg bg-cyan-500/20 border border-cyan-400 flex items-center justify-center text-sm font-bold text-cyan-300 shadow-sm">
+              🤖
+            </div>
+            <div>
+              <div class="flex items-center space-x-1.5">
+                <span id="hudStudentNameDisplay" class="font-stem text-xs sm:text-sm font-bold text-cyan-300 truncate max-w-[100px] sm:max-w-none">
+                  JURUTERA
+                </span>
+                <span id="hudStudentClassDisplay" class="text-[10px] font-stem bg-cyan-950 text-cyan-300 px-1.5 py-0.2 rounded border border-cyan-500/30">
+                  6 Arif
+                </span>
+              </div>
+              <span id="hudPartBadge" class="text-[10px] font-stem text-emerald-400 block">
+                Modul 1: Kejuruteraan Mesin
+              </span>
+            </div>
+          </div>
+
+          <!-- Mini Map 20 Nod Penderia Misi -->
+          <div class="hidden md:flex items-center space-x-1" id="hologramMiniMapGrid">
+            <!-- Dijana oleh JS -->
+          </div>
+
+          <!-- Jam Pemasa Makmal & Markah Tenaga -->
+          <div class="flex items-center space-x-3 text-right">
+            <div class="bg-slate-900 px-2.5 py-1 rounded-lg border border-cyan-500/30 flex items-center space-x-1 text-xs font-stem">
+              <span class="text-cyan-400">⏱️</span>
+              <span id="navTimeDigit" class="font-mono font-bold text-amber-300">00:00</span>
+            </div>
+
+            <div>
+              <span class="text-[9px] font-stem text-slate-400 uppercase block tracking-wider">SKOR STEM</span>
+              <span class="font-stem font-bold text-base sm:text-lg text-emerald-300 flex items-center justify-end gap-1">
+                ⭐ <span id="hudScoreDisplay">0</span><span class="text-xs text-slate-400">/20</span>
+              </span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Kad Utama Soalan Makmal STEM -->
+        <div class="stem-glass-panel rounded-3xl p-5 sm:p-7 relative tech-corners shadow-2xl text-left">
+          
+          <!-- Bar Kemajuan Garisan Neon -->
+          <div class="flex items-center justify-between mb-2 text-xs font-stem font-bold">
+            <span class="text-cyan-400 flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping"></span>
+              NOD DIAGNOSTIK <span id="currentQNumText">1</span> / 20
+            </span>
+            <span id="currentAccuracyPercent" class="text-slate-400">
+              Ketepatan: 100%
+            </span>
+          </div>
+
+          <div class="w-full h-2 rounded-full bg-slate-900 border border-cyan-500/30 overflow-hidden mb-5 p-0.5">
+            <div id="missionProgressBar" class="h-full rounded-full bg-gradient-to-r from-cyan-400 via-blue-500 to-emerald-400 circuit-glow transition-all duration-300" style="width: 5%;"></div>
+          </div>
+
+          <!-- Kotak Senario Blueprint & Gambar Rajah Prominen -->
+          <div class="rounded-2xl bg-slate-900/90 border-2 border-cyan-500/40 p-4 sm:p-5 mb-5 shadow-inner relative overflow-hidden flex flex-col sm:flex-row gap-4 sm:gap-6 items-center sm:items-start">
+            <div class="absolute top-0 right-0 px-3 py-1 bg-cyan-950/80 border-b border-l border-cyan-500/40 font-stem text-[10px] text-cyan-300 rounded-bl-xl z-10">
+              TELEMETRI SAINS &amp; RBT
+            </div>
+
+            <!-- Bekas Gambar Prominen (Sangat Jelas & Boleh Ditekan) -->
+            <div class="w-32 h-32 sm:w-48 sm:h-48 shrink-0 relative group mt-4 sm:mt-0">
+              <div class="absolute inset-0 bg-cyan-500/20 blur-xl group-hover:bg-cyan-400/30 transition duration-300 rounded-full"></div>
+              <div id="questionSvgContainer" onclick="openImageZoom()" class="relative w-full h-full bg-slate-950 rounded-2xl border-2 border-cyan-400/60 p-2.5 shadow-lg shadow-cyan-900/50 cursor-pointer transition transform group-hover:scale-105 flex items-center justify-center">
+                <!-- Dijana oleh JS -->
+              </div>
+              <div class="absolute -bottom-2.5 left-1/2 -translate-x-1/2 whitespace-nowrap bg-cyan-900 text-cyan-300 text-[10px] font-stem font-bold px-3 py-1 rounded-full border border-cyan-400 shadow-sm pointer-events-none flex items-center gap-1">
+                <span>🔍</span> TEKAN UNTUK ZUM
+              </div>
+            </div>
+
+            <!-- Bekas Teks Soalan -->
+            <div class="flex-1 w-full text-center sm:text-left">
+              <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2 mb-2.5">
+                <span id="questionTopicPill" class="px-2.5 py-0.5 rounded-md bg-cyan-500/20 text-cyan-300 font-stem text-xs font-bold border border-cyan-400/40 uppercase">
+                  MESIN KOMPLEKS
+                </span>
+                <span id="missingComponentTag" class="text-[11px] sm:text-xs font-stem font-semibold text-amber-400">
+                  🔍 Analisis Komponen Diperlukan
+                </span>
+              </div>
+
+              <h3 id="questionTitleDisplay" class="text-lg sm:text-2xl font-stem font-bold text-white mb-2.5 flex items-center justify-center sm:justify-start gap-2.5">
+                <span id="questionEmojiIcon" class="p-1.5 rounded-lg bg-slate-800 border border-slate-700 shadow-sm">🚲</span>
+                <span id="questionTitleText" class="leading-tight">Basikal Rosak</span>
+              </h3>
+
+              <p id="questionStoryText" class="text-xs sm:text-sm font-body text-slate-200 leading-relaxed bg-slate-800/60 p-3 sm:p-4 rounded-xl border border-slate-700/60 shadow-inner">
+                Pengayuh dikayuh laju tetapi roda belakang langsung tidak berputar kerana tiada komponen penghubung daya antara pengayuh dan rantai.
+              </p>
+              
+              <div class="mt-3 text-left bg-amber-950/30 p-2.5 rounded-lg border border-amber-500/30 flex items-start gap-2">
+                <span class="text-amber-400 text-sm">💡</span>
+                <p id="questionVisualHintText" class="text-[11px] sm:text-xs font-stem font-bold text-amber-300 leading-snug">
+                  <!-- Dijana oleh JS -->
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tajuk Pilihan Mesin -->
+          <div class="flex items-center justify-between mb-2.5">
+            <span class="text-xs font-stem font-bold text-cyan-300 uppercase flex items-center gap-1.5">
+              <span>⚡</span> PILIH MESIN RINGKAS YANG TEPAT:
+            </span>
+            <span class="text-[11px] font-stem text-slate-400 hidden sm:inline">
+              (Tekan kekunci 1, 2, 3, 4 untuk pilihan pantas)
+            </span>
+          </div>
+
+          <!-- Grid Pilihan Jawapan -->
+          <div id="choicesGridContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 mb-4">
+            <!-- Dijana oleh JS -->
+          </div>
+
+          <!-- Maklum Balas Pedagogi Sains -->
+          <div id="feedbackBoxContainer" class="hidden rounded-2xl p-4 transition-all duration-300 border-2 mb-3">
+            <div class="flex items-start space-x-3">
+              <div id="feedbackIconBox" class="w-10 h-10 rounded-xl flex items-center justify-center text-xl shrink-0 font-stem font-bold shadow-sm">
+                💡
+              </div>
+              <div class="flex-1">
+                <h4 id="feedbackStatusTitle" class="font-stem text-sm font-bold"></h4>
+                <p id="feedbackExplanationText" class="text-xs sm:text-sm font-body mt-0.5 leading-snug"></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Butang Misi Seterusnya -->
+          <div class="flex justify-end pt-1">
+            <button 
+              id="nextQuestionBtn" 
+              onclick="nextQuestion()" 
+              class="stem-btn-3d hidden py-2.5 px-6 rounded-xl bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-600 hover:from-cyan-300 hover:to-blue-400 text-slate-950 font-stem font-extrabold text-sm sm:text-base border-b-4 border-blue-900 shadow-lg shadow-cyan-500/25 flex items-center space-x-2"
+            >
+              <span>SOALAN SETERUSNYA</span>
+              <span>➔</span>
+            </button>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- ================= SKRIN 3: LAPORAN ANALISIS STEM & PBD ================= -->
+      <section id="screenSummary" class="hidden stem-glass-panel rounded-3xl p-5 sm:p-8 text-center tech-corners relative shadow-2xl">
+        
+        <!-- Pengepala Tahniah STEM -->
+        <div class="mb-3">
+          <div class="flex items-center justify-center space-x-2 mb-2">
+            <span id="starNode1" class="text-3xl sm:text-4xl transition transform duration-500 scale-75 opacity-30">⭐</span>
+            <span id="starNode2" class="text-4xl sm:text-5xl transition transform duration-500 scale-75 opacity-30 -translate-y-2">🌟</span>
+            <span id="starNode3" class="text-3xl sm:text-4xl transition transform duration-500 scale-75 opacity-30">⭐</span>
+          </div>
+
+          <span class="inline-block px-3 py-0.5 rounded-full bg-cyan-950 border border-cyan-400 text-cyan-300 font-stem text-xs font-bold uppercase mb-1">
+            MISI MAKMAL STEM SELESAI! 🏁
+          </span>
+          <h2 class="font-stem text-2xl sm:text-4xl font-bold text-white tracking-wide">
+            Tahniah, Wira STEM!
+          </h2>
+          <p class="text-xs sm:text-sm font-body text-slate-300 mt-0.5">
+            Nama: <span id="summaryStudentNameTxt" class="font-stem font-bold text-cyan-300 uppercase">MURID</span> • Masa Makmal: <span id="summaryTimeTakenTxt" class="font-stem font-bold text-amber-300">00:00</span>
+          </p>
+        </div>
+
+        <!-- Banner Ranking Kejohanan STEM -->
+        <div id="summaryRankCardNotice" class="max-w-md mx-auto mb-4 p-3 rounded-2xl bg-slate-900/90 border-2 border-amber-500/50 shadow-md flex items-center justify-between">
+          <div class="flex items-center space-x-2.5 text-left">
+            <span class="text-3xl" id="summaryRankMedalEmoji">🏅</span>
+            <div>
+              <span class="text-[10px] font-stem font-bold text-amber-400 uppercase block">KEDUDUKAN KEJOHANAN STEM:</span>
+              <span id="summaryRankPositionText" class="font-stem text-sm sm:text-base font-extrabold text-white">Mengira ranking...</span>
+            </div>
+          </div>
+          <button 
+            onclick="openLeaderboardModal()" 
+            class="stem-btn-3d px-3 py-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 rounded-xl text-xs font-stem font-bold border-b-2 border-amber-700 shadow-sm"
+          >
+            CARTA JUARA 🏆
+          </button>
+        </div>
+
+        <!-- 4 Kotak Telemetri Skor -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 max-w-xl mx-auto mb-4 text-center">
+          
+          <div class="p-3 rounded-xl bg-slate-900 border border-cyan-500/30">
+            <span class="text-[9px] font-stem text-slate-400 uppercase block">JUMLAH MARKAH</span>
+            <div class="font-stem font-extrabold text-xl sm:text-2xl text-cyan-400 mt-0.5">
+              <span id="finalScoreVal">0</span><span class="text-xs text-slate-400">/20</span>
+            </div>
+          </div>
+
+          <div class="p-3 rounded-xl bg-slate-900 border border-emerald-500/30">
+            <span class="text-[9px] font-stem text-slate-400 uppercase block">KETEPATAN TEKNIKAL</span>
+            <div id="finalAccuracyVal" class="font-stem font-extrabold text-xl sm:text-2xl text-emerald-400 mt-0.5">
+              0%
+            </div>
+          </div>
+
+          <div class="p-3 rounded-xl bg-slate-900 border border-blue-500/30">
+            <span class="text-[9px] font-stem text-slate-400 uppercase block">BAHAGIAN 1</span>
+            <div class="font-stem font-extrabold text-xl sm:text-2xl text-blue-400 mt-0.5">
+              <span id="finalB1Score">0</span><span class="text-xs text-slate-400">/10</span>
+            </div>
+          </div>
+
+          <div class="p-3 rounded-xl bg-slate-900 border border-amber-500/30">
+            <span class="text-[9px] font-stem text-slate-400 uppercase block">BAHAGIAN 2</span>
+            <div class="font-stem font-extrabold text-xl sm:text-2xl text-amber-400 mt-0.5">
+              <span id="finalB2Score">0</span><span class="text-xs text-slate-400">/10</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Penilaian Tahap Penguasaan STEM (TP PBD) -->
+        <div class="max-w-lg mx-auto mb-4">
+          <div id="finalMasteryPill" class="inline-flex items-center px-4 py-1 rounded-full font-stem text-xs font-bold mb-1.5">
+            TAHAP PENGUASAAN: SEDANG DIANALISIS
+          </div>
+          <p id="finalPedagogicalFeedback" class="text-xs sm:text-sm font-body text-slate-300 bg-slate-900/80 p-3 rounded-xl border border-slate-700">
+            Ulasan guru sedang dijana...
+          </p>
+        </div>
+
+        <!-- Navigasi Tab Analisis Makmal -->
+        <div class="flex items-center justify-center p-1 bg-slate-900/90 rounded-xl max-w-lg mx-auto mb-4 border border-cyan-500/30 text-xs font-stem font-bold">
+          <button onclick="switchSummaryTab('analytics')" id="summaryTab_analytics" class="flex-1 py-1.5 rounded-lg transition text-slate-950 bg-cyan-400 shadow-sm">
+            📊 7 Mesin
+          </button>
+          <button onclick="switchSummaryTab('badges')" id="summaryTab_badges" class="flex-1 py-1.5 rounded-lg transition text-slate-400 hover:text-white">
+            🏅 Lencana (<span id="unlockedBadgesCounter">0</span>)
+          </button>
+          <button onclick="switchSummaryTab('leaderboard')" id="summaryTab_leaderboard" class="flex-1 py-1.5 rounded-lg transition text-slate-400 hover:text-white">
+            🏆 Ranking
+          </button>
+          <button onclick="switchSummaryTab('certificate')" id="summaryTab_certificate" class="flex-1 py-1.5 rounded-lg transition text-slate-400 hover:text-white">
+            📜 Sijil STEM
+          </button>
+        </div>
+
+        <!-- Tab 1: Analisis 7 Mesin Ringkas -->
+        <div id="summaryContent_analytics" class="max-w-lg mx-auto text-left space-y-2 mb-4">
+          <div class="p-4 rounded-xl bg-slate-900/90 border border-cyan-500/30 space-y-2.5">
+            <h4 class="font-stem text-xs font-bold text-cyan-300 uppercase flex items-center justify-between">
+              <span>DIAGNOSTIK PENGUASAAN 7 MESIN RINGKAS:</span>
+              <span class="text-[10px] text-slate-400 font-body">Standard RBT &amp; Sains</span>
+            </h4>
+            <div id="diagnosticBarsContainer" class="space-y-2">
+              <!-- Dijana oleh JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 2: Peti Lencana Kejayaan STEM -->
+        <div id="summaryContent_badges" class="hidden max-w-lg mx-auto text-left mb-4">
+          <div class="p-4 rounded-xl bg-slate-900/90 border border-cyan-500/30">
+            <h4 class="font-stem text-xs font-bold text-cyan-300 uppercase mb-2.5">
+              LENCANA JURUTERA CILIK KAINGARAN:
+            </h4>
+            <div id="badgesGridLocker" class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <!-- Dijana oleh JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 3: Kedudukan Pantas -->
+        <div id="summaryContent_leaderboard" class="hidden max-w-lg mx-auto text-left mb-4">
+          <div class="p-4 rounded-xl bg-slate-900/90 border border-cyan-500/30 space-y-2">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+              <div>
+                <h4 class="font-stem text-xs font-bold text-cyan-300">5 TERATAS KEJOHANAN STEM:</h4>
+                <p class="text-[10px] font-body text-slate-400">Markah Tertinggi ➔ Masa Terpantas</p>
+              </div>
+              <button onclick="openLeaderboardModal()" class="text-xs font-stem font-bold text-amber-400 hover:underline">
+                Papar Penuh ↗
+              </button>
+            </div>
+            <div id="miniSummaryLeaderboardList" class="space-y-1.5">
+              <!-- Dijana oleh JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 4: Sijil Digital STEM -->
+        <div id="summaryContent_certificate" class="hidden max-w-lg mx-auto text-left mb-4">
+          <div class="p-5 rounded-xl bg-slate-900/95 border-2 border-cyan-400 text-center relative overflow-hidden shadow-inner">
+            <div class="text-3xl mb-1">🏅</div>
+            <span class="text-[10px] font-stem font-bold text-cyan-400 uppercase tracking-widest block">SIJIL PENCAPAIAN STEM DIGITAL</span>
+            <h3 class="font-stem text-sm sm:text-base font-bold text-white uppercase mt-0.5">SEKOLAH KEBANGSAAN KAINGARAN TAMBUNAN</h3>
+            <p class="text-[11px] font-body text-slate-300 mt-1">
+              Dengan ini memperakui bahawa wira jurutera:
+            </p>
+            <div id="certStudentNameTag" class="my-2 py-1 px-4 inline-block rounded-lg bg-slate-800 border border-cyan-400 font-stem text-base font-extrabold text-cyan-300 shadow-sm uppercase">
+              NAMA MURID
+            </div>
+            <p class="text-[11px] font-body text-slate-300">
+              Telah berjaya menyelesaikan <span class="font-stem text-cyan-300">Misi Mekanik Pintar (RBT &amp; Sains Tahap 2)</span> dengan markah <span id="certScoreDisplay" class="font-bold text-amber-400">20/20</span> dan mencapai <span id="certTPDisplay" class="font-bold text-emerald-400">TP6</span>.
+            </p>
+          </div>
+
+          <div class="mt-3 flex gap-2">
+            <button 
+              onclick="copyPBDReportText()" 
+              class="stem-btn-3d flex-1 py-2 px-4 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-stem font-bold text-xs border-b-2 border-cyan-700 shadow-sm flex items-center justify-center space-x-1.5"
+            >
+              <span>📋 SALIN LAPORAN PBD GURU</span>
+            </button>
+          </div>
+          <p id="copyToastMessage" class="text-center text-xs font-stem font-bold text-emerald-400 mt-1.5 hidden">
+            ✓ Format Laporan PBD telah disalin! Boleh ditampal terus ke rekod guru atau WhatsApp.
+          </p>
+        </div>
+
+        <!-- Butang Tamat / Ulang -->
+        <div class="flex flex-col sm:flex-row gap-2 max-w-md mx-auto pt-1">
+          <button 
+            onclick="restartMission()" 
+            class="stem-btn-3d flex-1 py-2.5 px-5 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-300 hover:to-blue-400 text-slate-950 font-stem font-bold text-sm border-b-4 border-blue-900 shadow-md flex items-center justify-center space-x-1.5"
+          >
+            <span>🔄 MAIN SEMULA</span>
+          </button>
+
+          <button 
+            onclick="openLeaderboardModal()" 
+            class="stem-btn-3d flex-1 py-2.5 px-5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-stem font-bold text-sm border border-amber-500/40 border-b-4 border-b-amber-700 shadow-sm flex items-center justify-center space-x-1.5"
+          >
+            <span>🏆 RANKING PENUH</span>
+          </button>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ================= MODAL ZUM RAJAH SOALAN ================= -->
+  <div id="imageZoomModal" class="fixed inset-0 z-[60] flex items-center justify-center p-3 sm:p-5 bg-slate-950/85 backdrop-blur-md hidden">
+    <div class="stem-glass-panel w-full max-w-md rounded-3xl overflow-hidden flex flex-col p-4 sm:p-5 bg-slate-900/95 border-2 border-cyan-400 relative shadow-2xl tech-corners transform transition-all">
+      
+      <div class="flex items-center justify-between pb-3 border-b border-cyan-500/30 mb-4">
+        <h3 id="zoomModalTitle" class="font-stem text-base sm:text-lg font-bold text-white tracking-wide flex items-center gap-2">
+          <span class="text-2xl">🔍</span> Rajah Soalan
+        </h3>
+        <button onclick="closeImageZoom()" class="stem-btn-3d w-9 h-9 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-stem font-bold text-base border border-slate-600 flex items-center justify-center shadow-sm">✕</button>
+      </div>
+
+      <div id="zoomModalContent" class="w-full aspect-square bg-slate-950 rounded-2xl border-2 border-cyan-500/50 p-4 flex items-center justify-center shadow-inner overflow-hidden">
+        <!-- Dijana oleh JS -->
+      </div>
+      
+      <p id="zoomModalCaption" class="text-xs sm:text-sm font-body text-cyan-100 mt-4 text-center bg-cyan-950/60 p-3 sm:p-4 rounded-xl border border-cyan-500/40 font-semibold leading-relaxed">
+        <!-- Dijana oleh JS -->
+      </p>
+
+    </div>
+  </div>
+
+  <!-- ================= MODAL CARTA JUARA KEJOHANAN STEM ================= -->
+  <div id="leaderboardModal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-slate-950/80 backdrop-blur-md hidden">
+    <div class="stem-glass-panel w-full max-w-2xl max-h-[92vh] rounded-3xl overflow-hidden flex flex-col p-4 sm:p-6 bg-slate-950/95 border-2 border-cyan-400 relative shadow-2xl tech-corners">
+      
+      <!-- Pengepala Modal -->
+      <div class="flex items-center justify-between pb-3 border-b border-cyan-500/30">
+        <div class="flex items-center space-x-2.5">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 text-slate-950 flex items-center justify-center text-2xl shadow-md">
+            🏆
+          </div>
+          <div>
+            <h3 class="font-stem text-base sm:text-xl font-bold text-white tracking-wide">
+              CARTA JUARA KEJOHANAN STEM
+            </h3>
+            <span class="text-[11px] font-stem text-cyan-400 block">
+              SK KAINGARAN TAMBUNAN • SAINS &amp; RBT TAHAP 2
+            </span>
+          </div>
+        </div>
+
+        <button 
+          onclick="closeLeaderboardModal()" 
+          class="stem-btn-3d w-8 h-8 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 font-stem font-bold text-sm border border-slate-700 flex items-center justify-center"
+          title="Tutup"
+        >
+          ✕
+        </button>
+      </div>
+
+      <!-- Podium Top 3 Kejohanan STEM -->
+      <div id="podiumTop3Container" class="pt-4 pb-3 border-b border-slate-800 flex items-end justify-center gap-2 sm:gap-4 text-center">
+        <!-- Dijana oleh JS -->
+      </div>
+
+      <!-- Senarai Kedudukan Peserta -->
+      <div class="flex-grow overflow-y-auto py-2.5 space-y-1.5 stem-scroll pr-1" id="leaderboardListContainer">
+        <!-- Dijana oleh JS -->
+      </div>
+
+      <!-- Kaki Modal -->
+      <div class="pt-3 border-t border-slate-800 flex items-center justify-between text-xs font-stem">
+        <span class="text-slate-400 text-[11px]">
+          *Formula: Markah Tertinggi ➔ Masa Terpantas
+        </span>
+        <button 
+          onclick="closeLeaderboardModal()" 
+          class="stem-btn-3d px-4 py-1.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold border-b-2 border-cyan-700 shadow-sm"
+        >
+          KEMBALI KE MAKMAL 🚀
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= KAKI LAMAN STEM ================= -->
+  <footer class="relative z-20 py-2 text-center text-[11px] font-stem text-cyan-300/80 bg-slate-950/80 backdrop-blur-md border-t border-cyan-500/20">
+    MAKMAL STEM SK KAINGARAN TAMBUNAN, SABAH • MESIN RINGKAS &amp; KOMPLEKS (RBT &amp; SAINS)
+  </footer>
+
+  <!-- ================= JAVASCRIPT: LOGIK PERMAINAN & DATA ================= -->
+  <script>
+    /* ================= KESAN BUNYI SINTETIK (WEB AUDIO API) ================= */
+    let audioCtx = null;
+    let isSoundMuted = false;
+
+    function initAudioContext() {
+      if (!audioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContext();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function toggleSoundMute() {
+      isSoundMuted = !isSoundMuted;
+      const btn = document.getElementById('soundToggleBtn');
+      if (btn) btn.textContent = isSoundMuted ? '🔇' : '🔊';
+    }
+
+    function playTone(freq, type = 'sine', duration = 0.15, delay = 0, gainLevel = 0.12) {
+      if (isSoundMuted) return;
+      try {
+        initAudioContext();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime + delay);
+
+        gain.gain.setValueAtTime(gainLevel, audioCtx.currentTime + delay);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + delay + duration);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc.start(audioCtx.currentTime + delay);
+        osc.stop(audioCtx.currentTime + delay + duration);
+      } catch (e) {}
+    }
+
+    function soundClick() {
+      playTone(520, 'sine', 0.06, 0, 0.08);
+    }
+
+    function soundCorrect() {
+      playTone(523.25, 'triangle', 0.1, 0, 0.15); // C5
+      playTone(659.25, 'triangle', 0.12, 0.07, 0.15); // E5
+      playTone(783.99, 'triangle', 0.22, 0.14, 0.2); // G5
+    }
+
+    function soundWrong() {
+      playTone(280, 'sawtooth', 0.12, 0, 0.15);
+      playTone(210, 'sawtooth', 0.22, 0.1, 0.15);
+    }
+
+    function soundVictory() {
+      [523, 659, 784, 880, 1046, 1174, 1318].forEach((f, i) => {
+        playTone(f, 'triangle', 0.25, i * 0.08, 0.18);
+      });
+    }
+
+    /* ================= BANK DATA 20 SOALAN (RBT & SAINS) ================= */
+    const questionsBank = [
+      /* ---------- BAHAGIAN 1: BAIKI & LENGKAPKAN MESIN KOMPLEKS (10 SOALAN) ---------- */
+      {
+        part: 1,
+        topic: "Mesin Kompleks: Basikal",
+        emoji: "🚲",
+        title: "Basikal Tidak Berputar",
+        story: "Pengayuh dikayuh laju tetapi roda belakang langsung tidak berputar kerana tiada komponen pemindah daya ke rantai.",
+        choices: ["Gear", "Takal", "Baji", "Skru"],
+        correct: "Gear",
+        machineType: "Gear",
+        explanation: "Gear memindahkan kuasa daripada pengayuh dan mengubah kelajuan putaran ke roda belakang melalui rantai."
+      },
+      {
+        part: 1,
+        topic: "Mesin Kompleks: Gunting Pemotong Dahan",
+        emoji: "✂️",
+        title: "Gunting Dahan Tumpul & Rata",
+        story: "Pemegang tuas dan fulkrum dalam keadaan baik, tetapi bahagian hadapannya rata dan tumpul, gagal memutuskan dahan kayu.",
+        choices: ["Baji", "Satah Condong", "Skru", "Takal"],
+        correct: "Baji",
+        machineType: "Baji",
+        explanation: "Baji terdiri daripada dua satah condong yang menumpukan daya pada mata bilah tajam untuk memotong bahan."
+      },
+      {
+        part: 1,
+        topic: "Mesin Kompleks: Kereta Sorong",
+        emoji: "🛒",
+        title: "Kereta Sorong Sukar Ditolak",
+        story: "Badan penampung dan pemegang siap dipasang, tetapi pekerja tidak dapat menolaknya bergerak di atas tanah berpasir SK Kaingaran.",
+        choices: ["Roda dan Gandar", "Skru", "Gear", "Baji"],
+        correct: "Roda dan Gandar",
+        machineType: "Roda dan Gandar",
+        explanation: "Roda dan gandar mengurangkan geseran dengan tanah dan membolehkan beban berat dialihkan dengan lancar."
+      },
+      {
+        part: 1,
+        topic: "Mesin Kompleks: Kren Tapak Pembinaan",
+        emoji: "🏗️",
+        title: "Simen Gagal Dinaikkan",
+        story: "Lengan tuas kren berfungsi baik, tetapi kabel tersangkut dan simen tidak dapat dinaikkan ke tingkat 10 secara menegak.",
+        choices: ["Takal", "Satah Condong", "Baji", "Gear"],
+        correct: "Takal",
+        machineType: "Takal",
+        explanation: "Takal menukar arah daya tarikan bagi membolehkan beban berat diangkat ke aras tinggi dengan mudah."
+      },
+      {
+        part: 1,
+        topic: "Mesin Kompleks: Bicu Kereta (Scissor Jack)",
+        emoji: "🚗",
+        title: "Casis Kereta Gagal Dinaikkan",
+        story: "Kerangka logam diletakkan di bawah kereta, tetapi tiada komponen berulir untuk menolak dan menahan casis naik perlahan-lahan.",
+        choices: ["Skru", "Tuas", "Baji", "Takal"],
+        correct: "Skru",
+        machineType: "Skru",
+        explanation: "Skru menukar gerakan putaran kepada gerakan linear berdaya tinggi untuk mengangkat beban berat."
+      },
+      {
+        part: 1,
+        topic: "Mesin Kompleks: Joran Pancing Bergelendong",
+        emoji: "🎣",
+        title: "Tali Tangsi Sukar Digulung",
+        story: "Batang joran melentur baik, tetapi tali tangsi sukar ditarik masuk dengan pantas tanpa komponen gelendong pemutar.",
+        choices: ["Roda dan Gandar", "Baji", "Satah Condong", "Skru"],
+        correct: "Roda dan Gandar",
+        machineType: "Roda dan Gandar",
+        explanation: "Kekili joran menggunakan prinsip roda dan gandar untuk menggulung tali pancing yang panjang dengan cepat."
+      },
+      {
+        part: 1,
+        topic: "Mesin Kompleks: Pembuka Tin Manual",
+        emoji: "🥫",
+        title: "Gagal Menebuk Logam Penutup",
+        story: "Pemegang tuas dan roda pemutar berfungsi baik, tetapi tiada bilah tajam berpenjuru untuk menusuk penutup tin logam.",
+        choices: ["Baji", "Takal", "Skru", "Satah Condong"],
+        correct: "Baji",
+        machineType: "Baji",
+        explanation: "Mata pemotong baji yang tajam memisahkan dan menebuk kepingan penutup tin logam."
+      },
+      {
+        part: 1,
+        topic: "Mesin Kompleks: Trak Tunda Kenderaan",
+        emoji: "🚛",
+        title: "Kereta Sukar Masuk Ke Dek Lori",
+        story: "Kabel cangkuk siap dipasang, tetapi kereta rosak sukar ditarik ke atas dek belakang lori tanpa laluan landai.",
+        choices: ["Satah Condong", "Gear", "Baji", "Skru"],
+        correct: "Satah Condong",
+        machineType: "Satah Condong",
+        explanation: "Satah condong (ramp landai) mengurangkan daya yang diperlukan untuk memindahkan beban ke aras tinggi."
+      },
+      {
+        part: 1,
+        topic: "Mesin Kompleks: Jam Dinding Mekanikal",
+        emoji: "⏰",
+        title: "Jarum Jam Tidak Berputar Seimbang",
+        story: "Punca tenaga tersedia, tetapi jarum saat, minit, dan jam tidak bergerak pada nisbah kelajuan putaran yang berbeza.",
+        choices: ["Gear", "Tuas", "Takal", "Baji"],
+        correct: "Gear",
+        machineType: "Gear",
+        explanation: "Siri gabungan gear berbeza saiz mengawal dan menyelaras nisbah kelajuan putaran jarum jam mekanikal."
+      },
+      {
+        part: 1,
+        topic: "Mesin Kompleks: Penebuk Lubang Kertas",
+        emoji: "📄",
+        title: "Tenaga Terlalu Besar Diperlukan",
+        story: "Rod pemotong tajam sudah ada, tetapi pengguna memerlukan palang pemegang panjang untuk menjimatkan tenaga menekan kertas tebal.",
+        choices: ["Tuas", "Roda dan Gandar", "Skru", "Satah Condong"],
+        correct: "Tuas",
+        machineType: "Tuas",
+        explanation: "Tuas dengan fulkrum menggandakan daya tangan pengguna agar kerja menebuk kertas tebal menjadi lebih ringan."
+      },
+
+      /* ---------- BAHAGIAN 2: SELESAIKAN SENARIO MASALAH (10 SOALAN) ---------- */
+      {
+        part: 2,
+        topic: "Senario 1: Memuatkan Tong Racun",
+        emoji: "🌾",
+        title: "Angkat Beban 80 kg Ke Pikap",
+        story: "Pak Cik Ali perlu memuatkan tong racun seberat 80 kg dari tanah ke atas bonet pikap tanpa mengangkatnya terus secara menegak.",
+        choices: ["Satah Condong", "Baji", "Tuas", "Takal"],
+        correct: "Satah Condong",
+        machineType: "Satah Condong",
+        explanation: "Menggunakan papan landai (satah condong) mengurangkan daya angkat yang diperlukan untuk menolak tong naik."
+      },
+      {
+        part: 2,
+        topic: "Senario 2: Upacara Perhimpunan Sekolah",
+        emoji: "🚩",
+        title: "Menaikkan Jalur Gemilang",
+        story: "Pengawas SK Kaingaran perlu menaikkan Jalur Gemilang ke puncak tiang setinggi 7 meter setiap pagi tanpa memanjat tiang.",
+        choices: ["Takal", "Roda dan Gandar", "Gear", "Tuas"],
+        correct: "Takal",
+        machineType: "Takal",
+        explanation: "Takal tetap di puncak tiang menukar arah daya tarikan ke bawah bagi membolehkan bendera naik ke atas."
+      },
+      {
+        part: 2,
+        topic: "Senario 3: Memotong Kayu Api",
+        emoji: "🪵",
+        title: "Membelah Batang Pokok Getah",
+        story: "Penduduk kampung ingin membelah batang pokok getah yang tebal menjadi dua kepingan kayu api untuk kegunaan dapur.",
+        choices: ["Baji", "Skru", "Tuas", "Satah Condong"],
+        correct: "Baji",
+        machineType: "Baji",
+        explanation: "Mata kapak bertindak sebagai baji yang menghasilkan daya ke sisi untuk memisahkan urat kayu tebal."
+      },
+      {
+        part: 2,
+        topic: "Senario 4: Kerja Mengecat Bangunan",
+        emoji: "🎨",
+        title: "Membuka Penutup Tin Cat Ketat",
+        story: "Anda ingin membuka penutup tin cat yang sangat ketat menggunakan sebatang pemutar skru rata tanpa mencederakan jari tangan.",
+        choices: ["Tuas", "Baji", "Takal", "Gear"],
+        correct: "Tuas",
+        machineType: "Tuas",
+        explanation: "Batang pemutar skru bertindak sebagai tuas berfulkrum pada bibir tin untuk mengumpil penutup dengan mudah."
+      },
+      {
+        part: 2,
+        topic: "Senario 5: Bengkel RBT Sekolah",
+        emoji: "🛠️",
+        title: "Mencantum Kayu Rak Pasu",
+        story: "Murid RBT perlu mencantumkan dua keping kayu rak pasu secara kukuh, kekal, dan tahan getaran tanpa mudah tercabut.",
+        choices: ["Skru", "Baji", "Tuas", "Satah Condong"],
+        correct: "Skru",
+        machineType: "Skru",
+        explanation: "Bebenang skru mengikat serat kayu dengan lebih ketat serta tahan getaran berbanding paku biasa."
+      },
+      {
+        part: 2,
+        topic: "Senario 6: Pintu Pagar Dewan Sekolah",
+        emoji: "🏫",
+        title: "Menolak Pagar Besi Berat",
+        story: "Pengawal keselamatan perlu menolak pintu pagar besi dewan sepanjang 6 meter yang sangat berat ke kiri dan ke kanan dengan lancar.",
+        choices: ["Roda dan Gandar", "Tuas", "Gear", "Takal"],
+        correct: "Roda dan Gandar",
+        machineType: "Roda dan Gandar",
+        explanation: "Roda kecil pada landasan besi mengurangkan rintangan geseran antara pintu pagar berat dengan lantai."
+      },
+      {
+        part: 2,
+        topic: "Senario 7: Kemudahan Kerusi Roda",
+        emoji: "♿",
+        title: "Laluan Naik Ke Koridor Kelas",
+        story: "Guru ingin membina laluan khas untuk murid berkerusi roda naik dari dataran ke koridor kelas dengan beza ketinggian 0.5 meter.",
+        choices: ["Satah Condong", "Tuas", "Baji", "Skru"],
+        correct: "Satah Condong",
+        machineType: "Satah Condong",
+        explanation: "Laluan landai (ramp satah condong) membolehkan kerusi roda ditolak naik secara selamat tanpa mendaki tangga."
+      },
+      {
+        part: 2,
+        topic: "Senario 8: Baiki Meja Kelas",
+        emoji: "🔨",
+        title: "Mencabut Paku Berkarat",
+        story: "Tukang kayu perlu mencabut paku berkarat yang tertanam dalam papan meja lama menggunakan bahagian belakang penukul.",
+        choices: ["Tuas", "Baji", "Takal", "Gear"],
+        correct: "Tuas",
+        machineType: "Tuas",
+        explanation: "Bonggol penukul bertindak sebagai fulkrum dan pemegang sebagai lengan daya untuk menggandakan daya tarikan paku."
+      },
+      {
+        part: 2,
+        topic: "Senario 9: Bekalan Air Asas",
+        emoji: "🪣",
+        title: "Menimba Air Telaga 15 Meter",
+        story: "Penduduk ingin mengambil air dari telaga lama sedalam 15 meter menggunakan seutas tali dan timba dengan posisi badan yang stabil.",
+        choices: ["Takal", "Satah Condong", "Baji", "Skru"],
+        correct: "Takal",
+        machineType: "Takal",
+        explanation: "Roda takal di atas perigi membolehkan tarikan dilakukan secara selesa dan selamat tanpa membongkok ke dalam telaga."
+      },
+      {
+        part: 2,
+        topic: "Senario 10: Angin Kencang di Kelas",
+        emoji: "🚪",
+        title: "Menyendal Pintu Berdentum",
+        story: "Pintu bilik darjah kerap tertutup sendiri akibat angin kencang; guru perlu menyendal bahagian bawah pintu agar kekal terbuka.",
+        choices: ["Baji", "Satah Condong", "Tuas", "Gear"],
+        correct: "Baji",
+        machineType: "Baji",
+        explanation: "Bongkah segi tiga baji diselit di celah lantai menghasilkan geseran yang menahan pergerakan pintu."
+      }
+    ];
+
+    /* ================= PETUNJUK VISUAL & 20 RAJAH VEKTOR STEM (SAIZ 3X3 CM) ================= */
+    const questionVisualHints = [
+      "Perhatikan bulatan merah bertanda '?' pada gegancu gear roda belakang basikal.",
+      "Mata pemotong pada bilah gunting kelihatan rata dan tumpul, perlukan baji tajam.",
+      "Badan kereta sorong menyentuh tanah kerana ketiadaan gandar dan roda di hadapan.",
+      "Kabel besi di puncak tiang kren tergantung tanpa roda takal pengubah arah tarikan.",
+      "Kerangka bicu memerlukan rod skru berbebenang pilin untuk mengangkat casis.",
+      "Tali tangsi joran sukar digulung pantas tanpa gelendong roda dan gandar.",
+      "Penutup tin logam memerlukan mata pemotong baji tajam untuk ditembusi.",
+      "Terdapat jurang tinggi antara jalan raya dan dek lori, perlukan satah condong.",
+      "Siri roda bergigi (gear) berbeza saiz diperlukan untuk mengawal nisbah jarum jam.",
+      "Palang tuas panjang diperlukan untuk menggandakan daya penekan kertas tebal.",
+      "Papan landai (satah condong) memudahkan tong 80 kg ditolak naik ke bonet pikap.",
+      "Roda beralur (takal) di puncak tiang membolehkan bendera dinaikkan dari bawah.",
+      "Mata kapak bertindak sebagai baji untuk memisahkan urat kayu pokok getah.",
+      "Batang pemutar skru menjadi tuas berfulkrum pada bibir tin cat untuk mengumpil.",
+      "Alur bebenang skru mengikat dua kepingan kayu secara kukuh dan kalis getaran.",
+      "Roda kecil pada landasan membolehkan pintu pagar besi berat ditolak lancar.",
+      "Ramp landai (satah condong) membolehkan kerusi roda naik tanpa menaiki tangga.",
+      "Bonggol penukul menjadi fulkrum tuas untuk menggandakan daya tarikan paku.",
+      "Roda takal di atas perigi membolehkan timba air 15 meter ditarik secara selamat.",
+      "Bongkah segi tiga baji diselit di celah pintu untuk menghasilkan geseran penahan."
+    ];
+
+    function getQuestionSvg(idx) {
+      const svgs = [
+        // 0: Basikal Rosak (Gear missing)
+        `<svg viewBox="0 0 100 100" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="25" cy="65" r="16" stroke="#22d3ee" stroke-width="2.5"/>
+          <circle cx="75" cy="65" r="16" stroke="#22d3ee" stroke-width="2.5"/>
+          <path d="M25 65 L45 65 L65 45 L35 45 Z" stroke="#38bdf8" stroke-width="2.5"/>
+          <line x1="65" y1="45" x2="70" y2="35" stroke="#38bdf8" stroke-width="2.5"/>
+          <line x1="35" y1="45" x2="32" y2="37" stroke="#38bdf8" stroke-width="2.5"/>
+          <circle cx="75" cy="65" r="8" stroke="#f43f5e" stroke-width="2" stroke-dasharray="2 2" fill="rgba(244,63,94,0.3)"/>
+          <text x="75" y="69" font-size="10" font-weight="bold" fill="#f43f5e" text-anchor="middle">?</text>
+        </svg>`,
+        // 1: Gunting Dahan (Baji missing)
+        `<svg viewBox="0 0 100 100" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15 25 L48 50 L15 75" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="48" cy="50" r="4" fill="#38bdf8"/>
+          <rect x="52" y="44" width="34" height="6" rx="2" fill="rgba(244,63,94,0.3)" stroke="#f43f5e" stroke-width="2" stroke-dasharray="2 2"/>
+          <text x="69" y="49" font-size="9" font-weight="bold" fill="#f43f5e" text-anchor="middle">?</text>
+          <line x1="52" y1="56" x2="86" y2="56" stroke="#94a3b8" stroke-width="3"/>
+        </svg>`,
+        // 2: Kereta Sorong (Roda dan Gandar missing)
+        `<svg viewBox="0 0 100 100" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="18,38 74,38 60,65 26,65" fill="#0369a1" stroke="#38bdf8" stroke-width="2"/>
+          <line x1="12" y1="34" x2="35" y2="60" stroke="#f59e0b" stroke-width="3"/>
+          <polyline points="32,65 32,80 37,80" stroke="#94a3b8" stroke-width="2.5"/>
+          <circle cx="75" cy="70" r="11" stroke="#f43f5e" stroke-width="2" stroke-dasharray="2 2" fill="rgba(244,63,94,0.25)"/>
+          <text x="75" y="74" font-size="11" font-weight="bold" fill="#f43f5e" text-anchor="middle">?</text>
+        </svg>`,
+        // 3: Kren Tapak Pembinaan (Takal missing)
+        `<svg viewBox="0 0 100 100" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="28" y1="88" x2="28" y2="24" stroke="#f59e0b" stroke-width="4"/>
+          <line x1="18" y1="24" x2="85" y2="24" stroke="#f59e0b" stroke-width="3"/>
+          <circle cx="76" cy="24" r="7" stroke="#f43f5e" stroke-width="2" stroke-dasharray="2 2" fill="rgba(244,63,94,0.3)"/>
+          <text x="76" y="27" font-size="9" font-weight="bold" fill="#f43f5e" text-anchor="middle">?</text>
+          <line x1="76" y1="32" x2="76" y2="62" stroke="#e2e8f0" stroke-width="1.5"/>
+          <rect x="70" y="62" width="12" height="12" rx="2" fill="#047857" stroke="#34d399" stroke-width="1.5"/>
+        </svg>`,
+        // 4: Bicu Kereta (Skru missing)
+        `<svg viewBox="0 0 100 100" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="50,26 82,55 50,82 18,55" fill="none" stroke="#38bdf8" stroke-width="3"/>
+          <line x1="14" y1="55" x2="86" y2="55" stroke="#f43f5e" stroke-width="3" stroke-dasharray="3 2"/>
+          <text x="50" y="52" font-size="12" font-weight="bold" fill="#f43f5e" text-anchor="middle">?</text>
+          <rect x="42" y="18" width="16" height="8" rx="1.5" fill="#f59e0b"/>
+        </svg>`,
+        // 5: Joran Pancing (Roda dan Gandar reel missing)
+        `<svg viewBox="0 0 100 100" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15 85 Q45 20 86 24" stroke="#f59e0b" stroke-width="3" fill="none"/>
+          <circle cx="30" cy="70" r="10" stroke="#f43f5e" stroke-width="2" stroke-dasharray="2 2" fill="rgba(244,63,94,0.25)"/>
+          <text x="30" y="74" font-size="11" font-weight="bold" fill="#f43f5e" text-anchor="middle">?</text>
+          <path d="M86 24 Q90 60 78 80" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="2 2" fill="none"/>
+        </svg>`,
+        // 6: Pembuka Tin (Baji missing)
+        `<svg viewBox="0 0 100 100" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="32" y="44" width="42" height="42" rx="4" fill="#1e293b" stroke="#94a3b8" stroke-width="2"/>
+          <ellipse cx="53" cy="44" rx="21" ry="6" fill="#334155" stroke="#94a3b8" stroke-width="1.5"/>
+          <polygon points="32,28 48,44 20,44" fill="rgba(244,63,94,0.3)" stroke="#f43f5e" stroke-width="2" stroke-dasharray="2 2"/>
+          <text x="33" y="40" font-size="10" font-weight="bold" fill="#f43f5e" text-anchor="middle">?</text>
+        </svg>`,
+        // 7: Trak Tunda (Satah Condong ramp missing)
+        `<svg viewBox="0 0 100 100" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="12" y="48" width="46" height="24" rx="2" fill="#0284c7" stroke="#38bdf8" stroke-width="2"/>
+          <line x1="58" y1="52" x2="88" y2="82" stroke="#f43f5e" stroke-width="3" stroke-dasharray="3 2"/>
+          <text x="76" y="64" font-size="11" font-weight="bold" fill="#f43f5e" text-anchor="middle">?</text>
+          <line x1="8" y1="82" x2="92" y2="82" stroke="#64748b" stroke-width="3"/>
+          <circle cx="24" cy="74" r="6" fill="#0f172a" stroke="#38bdf8" stroke-width="2"/>
+          <circle cx="46" cy="74" r="6" fill="#0f172a" stroke="#38bdf8" stroke-width="2"/>
+        </svg>`,
+        // 8: Jam Dinding (Gear missing)
+        `<svg viewBox="0 0 100 100" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="50" r="36" stroke="#38bdf8" stroke-width="3" fill="#0f172a"/>
+          <circle cx="50" cy="50" r="15" stroke="#f43f5e" stroke-width="2" stroke-dasharray="3 2" fill="rgba(244,63,94,0.2)"/>
+          <text x="50" y="54" font-size="12" font-weight="bold" fill="#f43f5e" text-anchor="middle">?</text>
+          <line x1="50" y1="50" x2="50" y2="24" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="50" y1="50" x2="68" y2="50" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"/>
+        </svg>`,
+        // 9: Penebuk Lubang Kertas (Tuas lever arm missing)
+        `<svg viewBox="0 0 100 100" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="22" y="62" width="56" height="18" rx="3" fill="#1e293b" stroke="#64748b" stroke-width="2"/>
+          <circle cx="28" cy="62" r="4" fill="#38bdf8"/>
+          <line x1="28" y1="62" x2="80" y2="22" stroke="#f43f5e" stroke-width="3" stroke-dasharray="3 2"/>
+          <text x="58" y="38" font-size="11" font-weight="bold" fill="#f43f5e" text-anchor="middle">?</text>
+          <rect x="42" y="60" width="28" height="4" fill="#e2e8f0"/>
+        </svg>`,
+        // 10: Senario 1 (Satah Condong Tong ke Pikap)
+        `<svg viewBox="0 0 100 100" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="56" y="46" width="34" height="38" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+          <polygon points="12,84 56,46 56,84" fill="rgba(34,211,238,0.2)" stroke="#22d3ee" stroke-width="2.5"/>
+          <ellipse cx="36" cy="60" rx="9" ry="12" fill="#f59e0b" stroke="#d97706" stroke-width="1.5" transform="rotate(-38 36 60)"/>
+          <text x="38" y="32" font-size="9" font-weight="bold" fill="#22d3ee" text-anchor="middle">↗ Landai</text>
+        </svg>`,
+        // 11: Senario 2 (Takal Bendera)
+        `<svg viewBox="0 0 100 100" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="50" y1="12" x2="50" y2="88" stroke="#94a3b8" stroke-width="3"/>
+          <circle cx="50" cy="14" r="5" stroke="#22d3ee" stroke-width="2" fill="#0284c7"/>
+          <rect x="52" y="24" width="22" height="14" fill="#f43f5e" stroke="#fff" stroke-width="1"/>
+          <path d="M46 14 L46 80" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="2 1"/>
+          <text x="35" y="55" font-size="9" font-weight="bold" fill="#f59e0b">Tarikan ⬇</text>
+        </svg>`,
+        // 12: Senario 3 (Baji Kayu Pokok Getah)
+        `<svg viewBox="0 0 100 100" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="32" y="42" width="36" height="46" rx="2" fill="#78350f" stroke="#b45309" stroke-width="2"/>
+          <polygon points="50,48 40,16 60,16" fill="#e2e8f0" stroke="#22d3ee" stroke-width="2"/>
+          <line x1="50" y1="48" x2="50" y2="88" stroke="#0f172a" stroke-width="2"/>
+          <text x="25" y="38" font-size="8" font-weight="bold" fill="#22d3ee">⬅</text>
+          <text x="75" y="38" font-size="8" font-weight="bold" fill="#22d3ee">➡</text>
+        </svg>`,
+        // 13: Senario 4 (Tuas Buka Tin Cat)
+        `<svg viewBox="0 0 100 100" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="30" y="46" width="40" height="42" rx="3" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+          <ellipse cx="50" cy="46" rx="20" ry="6" fill="#334155" stroke="#38bdf8" stroke-width="1.5"/>
+          <line x1="18" y1="28" x2="48" y2="44" stroke="#f59e0b" stroke-width="3.5" stroke-linecap="round"/>
+          <polygon points="46,44 50,47 42,47" fill="#22d3ee"/>
+          <text x="32" y="24" font-size="9" font-weight="bold" fill="#22d3ee">Daya ⬆</text>
+        </svg>`,
+        // 14: Senario 5 (Skru Rak Kayu)
+        `<svg viewBox="0 0 100 100" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="22" y="36" width="56" height="16" fill="#78350f" stroke="#b45309" stroke-width="1.5"/>
+          <rect x="22" y="54" width="56" height="16" fill="#92400e" stroke="#b45309" stroke-width="1.5"/>
+          <line x1="50" y1="20" x2="50" y2="80" stroke="#e2e8f0" stroke-width="4"/>
+          <path d="M46 32 L54 36 M46 42 L54 46 M46 52 L54 56 M46 62 L54 66" stroke="#22d3ee" stroke-width="2"/>
+          <text x="50" y="16" font-size="8" font-weight="bold" fill="#22d3ee" text-anchor="middle">Bebenang</text>
+        </svg>`,
+        // 15: Senario 6 (Roda dan Gandar Pagar Besi)
+        `<svg viewBox="0 0 100 100" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="22" y="22" width="56" height="54" fill="none" stroke="#94a3b8" stroke-width="2"/>
+          <line x1="36" y1="22" x2="36" y2="76" stroke="#94a3b8" stroke-width="1.5"/>
+          <line x1="50" y1="22" x2="50" y2="76" stroke="#94a3b8" stroke-width="1.5"/>
+          <line x1="64" y1="22" x2="64" y2="76" stroke="#94a3b8" stroke-width="1.5"/>
+          <circle cx="34" cy="82" r="6" fill="#22d3ee" stroke="#0284c7" stroke-width="2"/>
+          <circle cx="66" cy="82" r="6" fill="#22d3ee" stroke="#0284c7" stroke-width="2"/>
+          <line x1="12" y1="88" x2="88" y2="88" stroke="#f59e0b" stroke-width="2"/>
+        </svg>`,
+        // 16: Senario 7 (Satah Condong Kerusi Roda)
+        `<svg viewBox="0 0 100 100" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="12,84 82,44 82,84" fill="rgba(34,211,238,0.25)" stroke="#22d3ee" stroke-width="2.5"/>
+          <circle cx="48" cy="56" r="8" fill="none" stroke="#f59e0b" stroke-width="2.5"/>
+          <circle cx="48" cy="42" r="3" fill="#f59e0b"/>
+          <line x1="48" y1="45" x2="48" y2="54" stroke="#f59e0b" stroke-width="2"/>
+          <text x="46" y="28" font-size="9" font-weight="bold" fill="#22d3ee">Ramp ↗</text>
+        </svg>`,
+        // 17: Senario 8 (Tuas Cabut Paku)
+        `<svg viewBox="0 0 100 100" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M34 50 Q52 68 68 64" stroke="#94a3b8" stroke-width="4.5" fill="none"/>
+          <line x1="34" y1="50" x2="18" y2="24" stroke="#f59e0b" stroke-width="3.5" stroke-linecap="round"/>
+          <line x1="58" y1="64" x2="58" y2="84" stroke="#e2e8f0" stroke-width="2.5"/>
+          <rect x="20" y="84" width="65" height="10" fill="#78350f"/>
+          <text x="75" y="48" font-size="9" font-weight="bold" fill="#22d3ee">Fulkrum ▲</text>
+        </svg>`,
+        // 18: Senario 9 (Takal Telaga)
+        `<svg viewBox="0 0 100 100" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="24" y="62" width="52" height="28" fill="#1e293b" stroke="#64748b" stroke-width="2"/>
+          <path d="M26 62 L26 24 L74 24 L74 62" fill="none" stroke="#64748b" stroke-width="3"/>
+          <circle cx="50" cy="28" r="6" fill="#0284c7" stroke="#22d3ee" stroke-width="2"/>
+          <line x1="50" y1="34" x2="50" y2="58" stroke="#f59e0b" stroke-width="1.5"/>
+          <rect x="45" y="58" width="10" height="12" rx="1.5" fill="#f59e0b"/>
+          <text x="50" y="16" font-size="8" font-weight="bold" fill="#22d3ee" text-anchor="middle">Takal Perigi</text>
+        </svg>`,
+        // 19: Senario 10 (Baji Sendal Pintu)
+        `<svg viewBox="0 0 100 100" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="26" y1="18" x2="26" y2="78" stroke="#f59e0b" stroke-width="6"/>
+          <polygon points="26,78 68,78 26,62" fill="#22d3ee" stroke="#06b6d4" stroke-width="2.5"/>
+          <line x1="12" y1="78" x2="88" y2="78" stroke="#94a3b8" stroke-width="2.5"/>
+          <text x="52" y="60" font-size="8" font-weight="bold" fill="#22d3ee">Baji Pintu</text>
+        </svg>`
+      ];
+      return svgs[idx] || svgs[0];
+    }
+
+    function openImageZoom() {
+      soundClick();
+      const modal = document.getElementById('imageZoomModal');
+      const content = document.getElementById('zoomModalContent');
+      const title = document.getElementById('zoomModalTitle');
+      const caption = document.getElementById('zoomModalCaption');
+      const q = questionsBank[currentIndex];
+
+      if (!modal || !content) return;
+      title.textContent = `Rajah Soalan #${currentIndex + 1}: ${q.title}`;
+      content.innerHTML = getQuestionSvg(currentIndex);
+      caption.textContent = questionVisualHints[currentIndex] || q.story;
+      modal.classList.remove('hidden');
+    }
+
+    function closeImageZoom() {
+      soundClick();
+      const modal = document.getElementById('imageZoomModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    let studentClass = "6 Arif";
+    let competitionRecords = [
+      { id: "s1", name: "Alister Justin", studentClass: "6 Arif", score: 20, timeSeconds: 94, accuracy: 100, tp: "TP6" },
+      { id: "s2", name: "Fellycia Jaimin", studentClass: "6 Arif", score: 20, timeSeconds: 112, accuracy: 100, tp: "TP6" },
+      { id: "s3", name: "Alexius Peter", studentClass: "6 Cerdik", score: 19, timeSeconds: 120, accuracy: 95, tp: "TP6" },
+      { id: "s4", name: "Michelle Johnny", studentClass: "5 Arif", score: 18, timeSeconds: 128, accuracy: 90, tp: "TP6" },
+      { id: "s5", name: "Ryan Bradley", studentClass: "6 Cerdik", score: 17, timeSeconds: 105, accuracy: 85, tp: "TP5" },
+      { id: "s6", name: "Evangeline D.", studentClass: "5 Cerdik", score: 16, timeSeconds: 139, accuracy: 80, tp: "TP5" }
+    ];
+
+    function getSortedLeaderboard() {
+      return [...competitionRecords].sort((a, b) => {
+        if (b.score !== a.score) return b.score - a.score;
+        return a.timeSeconds - b.timeSeconds;
+      });
+    }
+
+    function recordStudentScore(record) {
+      competitionRecords.push(record);
+      renderLeaderboardUI();
+    }
+
+    function openLeaderboardModal() {
+      soundClick();
+      renderLeaderboardUI();
+      document.getElementById('leaderboardModal').classList.remove('hidden');
+    }
+
+    function closeLeaderboardModal() {
+      soundClick();
+      document.getElementById('leaderboardModal').classList.add('hidden');
+    }
+
+    function renderLeaderboardUI() {
+      const sorted = getSortedLeaderboard();
+      const podium = document.getElementById('podiumTop3Container');
+      const list = document.getElementById('leaderboardListContainer');
+      const miniList = document.getElementById('miniSummaryLeaderboardList');
+
+      if (!podium || !list) return;
+
+      // 1. Render Podium STEM
+      podium.innerHTML = '';
+      const top3 = [sorted[1], sorted[0], sorted[2]];
+      const heights = ['h-24 sm:h-28 bg-gradient-to-t from-slate-900 to-slate-800 border-slate-600', 
+                       'h-32 sm:h-36 bg-gradient-to-t from-amber-950 to-slate-900 border-amber-400', 
+                       'h-20 sm:h-24 bg-gradient-to-t from-slate-900 to-slate-800 border-orange-600'];
+      const medals = ['🥈', '👑', '🥉'];
+      const ranks = [2, 1, 3];
+
+      top3.forEach((item, idx) => {
+        if (!item) return;
+        const col = document.createElement('div');
+        col.className = "flex-1 flex flex-col items-center max-w-[140px]";
+        col.innerHTML = `
+          <div class="text-2xl sm:text-3xl mb-1">${medals[idx]}</div>
+          <span class="text-xs font-stem font-bold text-white truncate w-full px-1">${item.name}</span>
+          <span class="text-[10px] font-body text-cyan-400">${item.studentClass || '6 Arif'}</span>
+          <div class="w-full ${heights[idx]} rounded-xl border-2 flex flex-col items-center justify-center mt-1 shadow-lg shadow-cyan-500/10">
+            <span class="text-sm sm:text-base font-stem font-extrabold text-amber-400">${item.score}/20</span>
+            <span class="text-[10px] font-mono text-slate-400 font-bold">${formatTime(item.timeSeconds)}</span>
+            <span class="text-[9px] font-stem font-bold px-2 py-0.5 rounded-full bg-slate-950 border border-cyan-500/40 text-cyan-300 mt-1">#${ranks[idx]}</span>
+          </div>
+        `;
+        podium.appendChild(col);
+      });
+
+      // 2. Senarai Ranking Penuh
+      list.innerHTML = '';
+      sorted.forEach((item, idx) => {
+        const isCurrent = item.name.toLowerCase() === playerName.toLowerCase();
+        const row = document.createElement('div');
+        row.className = `p-2.5 sm:p-3 rounded-xl border-2 flex items-center justify-between text-xs transition ${
+          isCurrent 
+            ? 'bg-cyan-950/80 border-cyan-400 shadow-md ring-2 ring-cyan-400' 
+            : 'bg-slate-900/80 border-slate-800 hover:border-cyan-500/50'
+        }`;
+
+        let medalBadge = `<span class="w-6 text-center font-stem font-bold text-slate-400">#${idx + 1}</span>`;
+        if (idx === 0) medalBadge = `<span class="w-6 text-center text-lg">🥇</span>`;
+        else if (idx === 1) medalBadge = `<span class="w-6 text-center text-lg">🥈</span>`;
+        else if (idx === 2) medalBadge = `<span class="w-6 text-center text-lg">🥉</span>`;
+
+        row.innerHTML = `
+          <div class="flex items-center space-x-2.5 truncate">
+            ${medalBadge}
+            <div class="truncate text-left">
+              <div class="flex items-center space-x-1.5">
+                <span class="font-stem font-bold text-white truncate text-xs sm:text-sm ${isCurrent ? 'text-cyan-300 font-extrabold' : ''}">
+                  ${item.name}
+                </span>
+                ${isCurrent ? '<span class="text-[8px] font-stem bg-cyan-500 text-slate-950 px-1.5 py-0.5 rounded-full font-bold">ANDA</span>' : ''}
+              </div>
+              <span class="text-[10px] font-body text-slate-400">${item.studentClass || '6 Arif'} • ${item.tp || 'TP6'}</span>
+            </div>
+          </div>
+
+          <div class="flex items-center space-x-3 shrink-0">
+            <div class="text-right">
+              <span class="font-stem font-extrabold text-sm sm:text-base text-amber-400 block">${item.score}/20</span>
+              <span class="text-[10px] font-mono text-slate-400 font-bold">⏱️ ${formatTime(item.timeSeconds)}</span>
+            </div>
+          </div>
+        `;
+        list.appendChild(row);
+      });
+
+      // 3. Mini List di Tab
+      if (miniList) {
+        miniList.innerHTML = '';
+        sorted.slice(0, 5).forEach((item, idx) => {
+          const isCurrent = item.name.toLowerCase() === playerName.toLowerCase();
+          const mRow = document.createElement('div');
+          mRow.className = `p-2 rounded-lg border flex items-center justify-between text-xs ${isCurrent ? 'bg-cyan-950 border-cyan-400 font-bold' : 'bg-slate-900 border-slate-800'}`;
+          mRow.innerHTML = `
+            <div class="flex items-center space-x-2">
+              <span class="font-stem font-bold text-slate-400">#${idx + 1}</span>
+              <span class="truncate max-w-[130px] font-stem text-white">${item.name}</span>
+            </div>
+            <div class="flex items-center space-x-2">
+              <span class="text-amber-400 font-stem font-bold">${item.score}/20</span>
+              <span class="text-[10px] font-mono text-slate-400">${formatTime(item.timeSeconds)}</span>
+            </div>
+          `;
+          miniList.appendChild(mRow);
+        });
+      }
+    }
+
+    /* ================= STATUS & PEMASA MISI STEM ================= */
+    let playerName = "";
+    let currentIndex = 0;
+    let score = 0;
+    let streak = 0;
+    let maxStreak = 0;
+    let userAnswers = [];
+    let isQuestionLocked = false;
+    let missionSeconds = 0;
+    let timerInterval = null;
+
+    function startMissionTimer() {
+      stopMissionTimer();
+      missionSeconds = 0;
+      updateTimerDisplay();
+
+      timerInterval = setInterval(() => {
+        missionSeconds++;
+        updateTimerDisplay();
+      }, 1000);
+    }
+
+    function stopMissionTimer() {
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+      }
+    }
+
+    function formatTime(sec) {
+      const m = Math.floor(sec / 60);
+      const s = sec % 60;
+      return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+    }
+
+    function updateTimerDisplay() {
+      const el = document.getElementById('navTimeDigit');
+      if (el) el.textContent = formatTime(missionSeconds);
+    }
+
+    function buildProgressMiniMap() {
+      const container = document.getElementById('hologramMiniMapGrid');
+      if (!container) return;
+      container.innerHTML = '';
+
+      for (let i = 0; i < questionsBank.length; i++) {
+        const node = document.createElement('div');
+        node.id = `mapNode_${i}`;
+        node.className = "w-5 h-5 rounded border border-cyan-500/30 bg-slate-900 text-[9px] font-stem font-bold flex items-center justify-center text-slate-400 transition-all";
+        node.textContent = i + 1;
+        container.appendChild(node);
+      }
+    }
+
+    function updateProgressMiniMap(currIdx) {
+      for (let i = 0; i < questionsBank.length; i++) {
+        const node = document.getElementById(`mapNode_${i}`);
+        if (!node) continue;
+
+        if (i === currIdx) {
+          node.className = "w-5 h-5 rounded border-2 border-cyan-400 bg-cyan-500 text-[10px] font-stem font-bold flex items-center justify-center text-slate-950 shadow-sm animate-pulse";
+        } else if (i < userAnswers.length) {
+          const ans = userAnswers[i];
+          if (ans.isCorrect) {
+            node.className = "w-5 h-5 rounded border border-emerald-400 bg-emerald-500 text-[9px] font-stem font-bold flex items-center justify-center text-slate-950";
+          } else {
+            node.className = "w-5 h-5 rounded border border-rose-400 bg-rose-500 text-[9px] font-stem font-bold flex items-center justify-center text-white";
+          }
+        } else {
+          node.className = "w-5 h-5 rounded border border-slate-800 bg-slate-900 text-[9px] font-stem font-semibold flex items-center justify-center text-slate-500";
+        }
+      }
+    }
+
+    function startMission() {
+      initAudioContext();
+      soundClick();
+
+      const input = document.getElementById('studentNameInput');
+      const classSelect = document.getElementById('studentClassSelect');
+      const err = document.getElementById('nameErrorMsg');
+      const val = input.value.trim();
+
+      if (!val) {
+        err.classList.remove('hidden');
+        input.focus();
+        return;
+      }
+      err.classList.add('hidden');
+      playerName = val;
+      if (classSelect) studentClass = classSelect.value;
+
+      document.getElementById('hudStudentNameDisplay').textContent = playerName;
+      document.getElementById('hudStudentClassDisplay').textContent = studentClass;
+
+      currentIndex = 0;
+      score = 0;
+      streak = 0;
+      maxStreak = 0;
+      userAnswers = [];
+      document.getElementById('hudScoreDisplay').textContent = "0";
+
+      buildProgressMiniMap();
+      startMissionTimer();
+
+      document.getElementById('screenLanding').classList.add('hidden');
+      document.getElementById('screenSummary').classList.add('hidden');
+      document.getElementById('screenGame').classList.remove('hidden');
+
+      loadQuestion(currentIndex);
+    }
+
+    function loadQuestion(index) {
+      isQuestionLocked = false;
+      const q = questionsBank[index];
+
+      document.getElementById('currentQNumText').textContent = index + 1;
+      const pct = Math.round(((index + 1) / questionsBank.length) * 100);
+      document.getElementById('missionProgressBar').style.width = `${pct}%`;
+
+      const acc = index > 0 ? Math.round((score / index) * 100) : 100;
+      document.getElementById('currentAccuracyPercent').textContent = `Ketepatan: ${acc}%`;
+
+      const partBadge = document.getElementById('hudPartBadge');
+      const topicPill = document.getElementById('questionTopicPill');
+      const compTag = document.getElementById('missingComponentTag');
+
+      if (q.part === 1) {
+        partBadge.textContent = "Modul 1: Kejuruteraan Mesin";
+        partBadge.className = "text-[10px] font-stem font-semibold text-cyan-400 block";
+        topicPill.textContent = q.topic;
+        compTag.textContent = "🔍 Analisis Komponen Diperlukan";
+      } else {
+        partBadge.textContent = "Modul 2: Aplikasi Sains Nyata";
+        partBadge.className = "text-[10px] font-stem font-semibold text-amber-400 block";
+        topicPill.textContent = q.topic;
+        compTag.textContent = "💡 Pilih Mesin Ringkas Paling Efisien";
+      }
+
+      document.getElementById('questionEmojiIcon').textContent = q.emoji;
+      document.getElementById('questionTitleText').textContent = q.title;
+      document.getElementById('questionStoryText').textContent = q.story;
+
+      /* Muat Rajah Ilustrasi Vektor STEM & Petunjuk */
+      const svgBox = document.getElementById('questionSvgContainer');
+      if (svgBox) {
+        svgBox.innerHTML = getQuestionSvg(index);
+      }
+      const hintText = document.getElementById('questionVisualHintText');
+      if (hintText && questionVisualHints[index]) {
+        hintText.textContent = questionVisualHints[index];
+      }
+      const diagBadge = document.getElementById('diagramPartBadge');
+      if (diagBadge) {
+        diagBadge.textContent = `NOD #${index + 1} (${q.part === 1 ? 'BAHAGIAN 1' : 'BAHAGIAN 2'})`;
+      }
+      const diagCaption = document.getElementById('diagramCaptionText');
+      if (diagCaption) {
+        diagCaption.textContent = q.part === 1 ? 'Rajah Diagnostik: Komponen yang hilang/rosak' : 'Rajah Senario: Situasi cabaran harian';
+      }
+
+      document.getElementById('feedbackBoxContainer').classList.add('hidden');
+      document.getElementById('nextQuestionBtn').classList.add('hidden');
+
+      const choicesContainer = document.getElementById('choicesGridContainer');
+      choicesContainer.innerHTML = '';
+
+      const keyBadges = ['A', 'B', 'C', 'D'];
+      const iconsMap = {
+        'Gear': '⚙️',
+        'Takal': '🪝',
+        'Baji': '🪓',
+        'Skru': '🔩',
+        'Tuas': '🥢',
+        'Roda dan Gandar': '🎡',
+        'Satah Condong': '📐'
+      };
+
+      q.choices.forEach((choice, i) => {
+        const btn = document.createElement('button');
+        btn.id = `choiceBtn_${i}`;
+        btn.onclick = () => handleAnswerSelect(choice, i);
+        btn.className = "choice-card-stem stem-btn-3d p-3.5 sm:p-4 rounded-xl bg-slate-900 border-2 border-slate-700 hover:border-cyan-400 text-left flex items-center justify-between group transition shadow-md";
+
+        const icon = iconsMap[choice] || '🔧';
+
+        btn.innerHTML = `
+          <div class="flex items-center space-x-3">
+            <span class="w-7 h-7 rounded-lg bg-slate-800 group-hover:bg-cyan-400 group-hover:text-slate-950 font-stem font-bold text-xs text-cyan-300 flex items-center justify-center transition border border-cyan-500/30">
+              ${keyBadges[i]}
+            </span>
+            <span class="font-stem font-bold text-sm sm:text-base text-white">
+              ${choice}
+            </span>
+          </div>
+          <span class="text-xl opacity-80 group-hover:scale-110 transition">${icon}</span>
+        `;
+
+        choicesContainer.appendChild(btn);
+      });
+
+      updateProgressMiniMap(index);
+    }
+
+    function handleAnswerSelect(selectedChoice, choiceIndex) {
+      if (isQuestionLocked) return;
+      isQuestionLocked = true;
+
+      const q = questionsBank[currentIndex];
+      const isCorrect = selectedChoice === q.correct;
+
+      userAnswers.push({
+        questionIndex: currentIndex,
+        question: q,
+        selected: selectedChoice,
+        isCorrect: isCorrect
+      });
+
+      const allBtns = document.getElementById('choicesGridContainer').children;
+      for (let i = 0; i < allBtns.length; i++) {
+        const btn = allBtns[i];
+        btn.disabled = true;
+        const text = q.choices[i];
+
+        if (text === q.correct) {
+          btn.className = "p-3.5 sm:p-4 rounded-xl bg-emerald-950/80 border-2 border-emerald-400 shadow-md text-left flex items-center justify-between transition";
+          btn.querySelector('span.w-7').className = "w-7 h-7 rounded-lg bg-emerald-400 text-slate-950 font-stem font-bold text-xs flex items-center justify-center shadow-xs";
+        } else if (i === choiceIndex && !isCorrect) {
+          btn.className = "p-3.5 sm:p-4 rounded-xl bg-rose-950/80 border-2 border-rose-400 shadow-md text-left flex items-center justify-between transition";
+          btn.querySelector('span.w-7').className = "w-7 h-7 rounded-lg bg-rose-400 text-white font-stem font-bold text-xs flex items-center justify-center shadow-xs";
+        } else {
+          btn.className = "p-3.5 sm:p-4 rounded-xl bg-slate-900 border border-slate-800 opacity-50 text-left flex items-center justify-between";
+        }
+      }
+
+      if (isCorrect) {
+        soundCorrect();
+        score++;
+        streak++;
+        if (streak > maxStreak) maxStreak = streak;
+        document.getElementById('hudScoreDisplay').textContent = score;
+      } else {
+        soundWrong();
+        streak = 0;
+      }
+
+      updateProgressMiniMap(currentIndex);
+
+      const fbBox = document.getElementById('feedbackBoxContainer');
+      const fbTitle = document.getElementById('feedbackStatusTitle');
+      const fbText = document.getElementById('feedbackExplanationText');
+      const fbIcon = document.getElementById('feedbackIconBox');
+
+      fbBox.classList.remove('hidden');
+
+      if (isCorrect) {
+        fbBox.className = "rounded-xl p-3.5 transition-all duration-300 border-2 bg-emerald-950/80 border-emerald-400 text-emerald-100 mb-3";
+        fbIcon.className = "w-9 h-9 rounded-lg bg-emerald-400 text-slate-950 flex items-center justify-center text-lg shrink-0";
+        fbIcon.textContent = "✓";
+        fbTitle.textContent = "Analisis Tepat! Kejuruteraan Berfungsi!";
+        fbTitle.className = "font-stem text-sm font-bold text-emerald-300";
+      } else {
+        fbBox.className = "rounded-xl p-3.5 transition-all duration-300 border-2 bg-rose-950/80 border-rose-400 text-rose-100 mb-3";
+        fbIcon.className = "w-9 h-9 rounded-lg bg-rose-400 text-white flex items-center justify-center text-lg shrink-0";
+        fbIcon.textContent = "✕";
+        fbTitle.textContent = `Diagnosis Kurang Tepat. Jawapan: ${q.correct}`;
+        fbTitle.className = "font-stem text-sm font-bold text-rose-300";
+      }
+
+      fbText.textContent = q.explanation;
+
+      const nextBtn = document.getElementById('nextQuestionBtn');
+      nextBtn.classList.remove('hidden');
+      if (currentIndex === questionsBank.length - 1) {
+        nextBtn.innerHTML = `<span>LIHAT KEPUTUSAN STEM</span> <span>🏆</span>`;
+      } else {
+        nextBtn.innerHTML = `<span>SOALAN SETERUSNYA</span> <span>➔</span>`;
+      }
+      nextBtn.focus();
+    }
+
+    function nextQuestion() {
+      soundClick();
+      if (currentIndex < questionsBank.length - 1) {
+        currentIndex++;
+        loadQuestion(currentIndex);
+      } else {
+        stopMissionTimer();
+        showSummaryScreen();
+      }
+    }
+
+    function showSummaryScreen() {
+      document.getElementById('screenGame').classList.add('hidden');
+      document.getElementById('screenSummary').classList.remove('hidden');
+
+      soundVictory();
+
+      document.getElementById('summaryStudentNameTxt').textContent = `${playerName} (${studentClass})`;
+      document.getElementById('summaryTimeTakenTxt').textContent = formatTime(missionSeconds);
+      document.getElementById('finalScoreVal').textContent = score;
+
+      const pct = Math.round((score / questionsBank.length) * 100);
+      document.getElementById('finalAccuracyVal').textContent = `${pct}%`;
+
+      const b1 = userAnswers.filter(a => a.question.part === 1 && a.isCorrect).length;
+      const b2 = userAnswers.filter(a => a.question.part === 2 && a.isCorrect).length;
+      document.getElementById('finalB1Score').textContent = b1;
+      document.getElementById('finalB2Score').textContent = b2;
+
+      document.getElementById('certStudentNameTag').textContent = `${playerName} (${studentClass})`;
+      document.getElementById('certScoreDisplay').textContent = `${score}/20`;
+
+      const s1 = document.getElementById('starNode1');
+      const s2 = document.getElementById('starNode2');
+      const s3 = document.getElementById('starNode3');
+      const pill = document.getElementById('finalMasteryPill');
+      const msg = document.getElementById('finalPedagogicalFeedback');
+
+      [s1, s2, s3].forEach(s => {
+        s.classList.remove('scale-100', 'opacity-100');
+        s.classList.add('scale-75', 'opacity-30');
+      });
+
+      let masteryLevel = "TP3";
+      if (score >= 17) {
+        masteryLevel = "TP6";
+        setTimeout(() => s1.classList.add('scale-100', 'opacity-100'), 150);
+        setTimeout(() => s2.classList.add('scale-100', 'opacity-100'), 350);
+        setTimeout(() => s3.classList.add('scale-100', 'opacity-100'), 550);
+
+        pill.className = "inline-flex items-center px-4 py-1.5 rounded-full font-stem text-xs sm:text-sm bg-emerald-950 text-emerald-300 border-2 border-emerald-400 shadow-sm mb-2 font-bold";
+        pill.textContent = "TAHAP PENGUASAAN: TP6 (INOVATOR CEMERLANG 🌟)";
+        document.getElementById('certTPDisplay').textContent = "TP6";
+        msg.textContent = `Luar biasa, ${playerName}! Anda menguasai prinsip sains fizik dan reka bentuk kejuruteraan 7 mesin ringkas dengan cemerlang di SK Kaingaran Tambunan!`;
+      } else if (score >= 12) {
+        masteryLevel = "TP5";
+        setTimeout(() => s1.classList.add('scale-100', 'opacity-100'), 200);
+        setTimeout(() => s2.classList.add('scale-100', 'opacity-100'), 450);
+
+        pill.className = "inline-flex items-center px-4 py-1.5 rounded-full font-stem text-xs sm:text-sm bg-cyan-950 text-cyan-300 border-2 border-cyan-400 shadow-sm mb-2 font-bold";
+        pill.textContent = "TAHAP PENGUASAAN: TP5 (JURUTERA TERLATIH 👍)";
+        document.getElementById('certTPDisplay').textContent = "TP5";
+        msg.textContent = `Syabas, ${playerName}! Kefahaman anda terhadap konsep daya dan mesin sangat kukuh. Boleh ulang uji nod yang terlepas untuk capai TP6!`;
+      } else {
+        masteryLevel = "TP3";
+        setTimeout(() => s1.classList.add('scale-100', 'opacity-100'), 250);
+
+        pill.className = "inline-flex items-center px-4 py-1.5 rounded-full font-stem text-xs sm:text-sm bg-amber-950 text-amber-300 border-2 border-amber-400 shadow-sm mb-2 font-bold";
+        pill.textContent = "TAHAP PENGUASAAN: TP3 (PERLU PENGUKUHAN TEKNIKAL 📚)";
+        document.getElementById('certTPDisplay').textContent = "TP3";
+        msg.textContent = `Teruskan latihan, ${playerName}! Lihat telemetri diagnostik di bawah untuk memperkukuh pemahaman fungsi tuas, skru, dan gear.`;
+      }
+
+      recordStudentScore({
+        id: `stem_rec_${Date.now()}`,
+        name: playerName,
+        studentClass: studentClass,
+        score: score,
+        timeSeconds: missionSeconds,
+        accuracy: pct,
+        tp: masteryLevel
+      });
+
+      const sorted = getSortedLeaderboard();
+      const myRankIndex = sorted.findIndex(s => s.name.toLowerCase() === playerName.toLowerCase());
+      const rankPosText = document.getElementById('summaryRankPositionText');
+      const medalEmoji = document.getElementById('summaryRankMedalEmoji');
+
+      if (myRankIndex !== -1) {
+        const place = myRankIndex + 1;
+        rankPosText.textContent = `Kedudukan Ke-${place} daripada ${sorted.length} Jurutera Cilik!`;
+        if (place === 1) medalEmoji.textContent = "🥇";
+        else if (place === 2) medalEmoji.textContent = "🥈";
+        else if (place === 3) medalEmoji.textContent = "🥉";
+        else medalEmoji.textContent = "🏅";
+      }
+
+      renderDiagnosticBars();
+      renderBadgesLocker();
+      switchSummaryTab('analytics');
+    }
+
+    function renderDiagnosticBars() {
+      const container = document.getElementById('diagnosticBarsContainer');
+      if (!container) return;
+      container.innerHTML = '';
+
+      const machines = ["Tuas", "Gear", "Takal", "Baji", "Skru", "Satah Condong", "Roda dan Gandar"];
+      const stats = {};
+      machines.forEach(m => stats[m] = { total: 0, correct: 0 });
+
+      userAnswers.forEach(ans => {
+        const t = ans.question.machineType;
+        if (stats[t]) {
+          stats[t].total++;
+          if (ans.isCorrect) stats[t].correct++;
+        }
+      });
+
+      machines.forEach(m => {
+        const item = stats[m];
+        if (item.total === 0) return;
+        const p = Math.round((item.correct / item.total) * 100);
+
+        let color = "bg-emerald-400";
+        if (p < 50) color = "bg-rose-500";
+        else if (p < 80) color = "bg-cyan-400";
+
+        const row = document.createElement('div');
+        row.className = "space-y-1";
+        row.innerHTML = `
+          <div class="flex items-center justify-between text-xs font-stem font-bold">
+            <span class="text-white">${m}</span>
+            <span class="text-slate-400">${item.correct}/${item.total} (${p}%)</span>
+          </div>
+          <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
+            <div class="h-full rounded-full ${color} transition-all duration-500" style="width: ${p}%"></div>
+          </div>
+        `;
+        container.appendChild(row);
+      });
+    }
+
+    function renderBadgesLocker() {
+      const grid = document.getElementById('badgesGridLocker');
+      const counter = document.getElementById('unlockedBadgesCounter');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      const badges = [
+        { id: 'b1', name: 'Jurutera STEM Cilik', desc: 'Menamatkan 20 diagnosis makmal', unlocked: true, icon: '🎓' },
+        { id: 'b2', name: 'Inovator TP6 Kaingaran', desc: 'Mencapai skor 17 ke atas', unlocked: score >= 17, icon: '🌟' },
+        { id: 'b3', name: 'Kuantum Kilat', desc: 'Selesai bawah 3 minit', unlocked: missionSeconds < 180, icon: '⚡' },
+        { id: 'b4', name: 'Master Mekanikal', desc: 'Skor sempurna Bahagian 1', unlocked: userAnswers.filter(a => a.question.part === 1 && a.isCorrect).length === 10, icon: '⚙️' }
+      ];
+
+      let unlockedCount = 0;
+      badges.forEach(b => {
+        if (b.unlocked) unlockedCount++;
+        const card = document.createElement('div');
+        card.className = `p-2.5 rounded-xl border flex items-center space-x-2.5 ${b.unlocked ? 'bg-cyan-950/60 border-cyan-400' : 'bg-slate-900 border-slate-800 opacity-40'}`;
+        card.innerHTML = `
+          <div class="text-2xl">${b.unlocked ? b.icon : '🔒'}</div>
+          <div>
+            <h5 class="font-stem text-xs font-bold text-white">${b.name}</h5>
+            <p class="text-[10px] font-body text-slate-400">${b.desc}</p>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      if (counter) counter.textContent = unlockedCount;
+    }
+
+    function switchSummaryTab(tabName) {
+      soundClick();
+      ['analytics', 'badges', 'leaderboard', 'certificate'].forEach(t => {
+        const btn = document.getElementById(`summaryTab_${t}`);
+        const content = document.getElementById(`summaryContent_${t}`);
+        if (!btn || !content) return;
+        if (t === tabName) {
+          btn.className = "flex-1 py-1.5 rounded-lg transition text-slate-950 bg-cyan-400 shadow-sm font-bold";
+          content.classList.remove('hidden');
+        } else {
+          btn.className = "flex-1 py-1.5 rounded-lg transition text-slate-400 hover:text-white";
+          content.classList.add('hidden');
+        }
+      });
+    }
+
+    function copyPBDReportText() {
+      soundClick();
+      const pct = Math.round((score / questionsBank.length) * 100);
+      const b1 = userAnswers.filter(a => a.question.part === 1 && a.isCorrect).length;
+      const b2 = userAnswers.filter(a => a.question.part === 2 && a.isCorrect).length;
+
+      let tp = "TP6 (Inovator Cemerlang)";
+      if (score < 12) tp = "TP3 (Perlu Pengukuhan)";
+      else if (score < 17) tp = "TP4-TP5 (Jurutera Terlatih)";
+
+      const sorted = getSortedLeaderboard();
+      const myRankIndex = sorted.findIndex(s => s.name.toLowerCase() === playerName.toLowerCase());
+      const rankText = myRankIndex !== -1 ? `#${myRankIndex + 1} daripada ${sorted.length} peserta` : 'Tersedia';
+
+      const txt = `[REKOD KEJOHANAN STEM & PBD - RBT & SAINS TAHAP 2]
+Sekolah: SEKOLAH KEBANGSAAN KAINGARAN TAMBUNAN, SABAH
+Nama Murid: ${playerName} (${studentClass})
+Modul: Misi Mekanik Pintar (Tema STEM & Kejuruteraan)
+Kedudukan Kejohanan: ${rankText}
+Markah Keseluruhan: ${score}/20 (${pct}%)
+Bahagian 1 (Kejuruteraan Mesin): ${b1}/10
+Bahagian 2 (Penyelesaian Senario): ${b2}/10
+Tahap Penguasaan: ${tp}
+Tempoh Makmal: ${formatTime(missionSeconds)}
+Status: SELESAI`;
+
+      const tArea = document.createElement("textarea");
+      tArea.value = txt;
+      tArea.style.position = "fixed";
+      tArea.style.left = "-999999px";
+      document.body.appendChild(tArea);
+      tArea.focus();
+      tArea.select();
+      try {
+        document.execCommand('copy');
+        const toast = document.getElementById('copyToastMessage');
+        toast.classList.remove('hidden');
+        setTimeout(() => toast.classList.add('hidden'), 3500);
+      } catch(e) {}
+      document.body.removeChild(tArea);
+    }
+
+    function restartMission() {
+      soundClick();
+      document.getElementById('screenSummary').classList.add('hidden');
+      document.getElementById('screenLanding').classList.remove('hidden');
+    }
+
+    function handleBackgroundUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        const bgPhoto = document.getElementById('dynamicBackgroundPhoto');
+        const svgBackdrop = document.getElementById('svgDawnBackdrop');
+        if (bgPhoto && svgBackdrop) {
+          bgPhoto.style.backgroundImage = `url('${evt.target.result}')`;
+          svgBackdrop.style.opacity = '0.3';
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+
+    /* Zarah Tenaga Biru Neon (STEM Floating Particles) */
+    function initStemEnergyCanvas() {
+      const canvas = document.getElementById('stemEnergyCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+
+      let w = canvas.width = window.innerWidth;
+      let h = canvas.height = window.innerHeight;
+
+      window.addEventListener('resize', () => {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+      });
+
+      const particles = [];
+      for (let i = 0; i < 35; i++) {
+        particles.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          r: Math.random() * 2 + 1,
+          dx: (Math.random() - 0.5) * 0.5,
+          dy: -Math.random() * 0.6 - 0.2,
+          color: Math.random() > 0.4 ? 'rgba(34, 211, 238,' : 'rgba(245, 158, 11,'
+        });
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, w, h);
+        particles.forEach(p => {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = `${p.color} 0.5)`;
+          ctx.fill();
+
+          p.x += p.dx;
+          p.y += p.dy;
+
+          if (p.y < 0) { p.y = h; p.x = Math.random() * w; }
+          if (p.x < 0) p.x = w;
+          if (p.x > w) p.x = 0;
+        });
+        requestAnimationFrame(draw);
+      }
+      draw();
+    }
+
+    /* Pintasan Papan Kekunci 1, 2, 3, 4 & Enter */
+    window.addEventListener('keydown', (e) => {
+      const key = e.key;
+      if (['1', '2', '3', '4'].includes(key) && !isQuestionLocked && !document.getElementById('screenGame').classList.contains('hidden')) {
+        const idx = parseInt(key, 10) - 1;
+        const q = questionsBank[currentIndex];
+        if (q && q.choices[idx]) {
+          handleAnswerSelect(q.choices[idx], idx);
+        }
+      } else if (key === 'Enter' && isQuestionLocked && !document.getElementById('nextQuestionBtn').classList.contains('hidden')) {
+        nextQuestion();
+      }
+    });
+
+    window.addEventListener('load', () => {
+      initStemEnergyCanvas();
+    });
+  </script>
+</body>
+</html>
