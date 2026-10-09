@@ -235,6 +235,11 @@
 
     <!-- Tindakan Konsol Atas -->
     <div class="flex items-center space-x-2">
+      <!-- Status Cloud Sync (Visual Indicator) -->
+      <div id="cloudSyncIndicator" class="hidden sm:flex items-center px-2 py-1 rounded-lg bg-emerald-900/40 border border-emerald-500/30 text-[9px] font-stem text-emerald-400">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse mr-1"></span> LIVE SYNC
+      </div>
+
       <!-- Muat Naik Gambar Pemandangan Fajar Sendiri -->
       <button 
         onclick="document.getElementById('schoolPhotoInput').click()" 
@@ -242,7 +247,7 @@
         title="Muat naik foto latar belakang anda"
       >
         <span>📷</span>
-        <span class="hidden sm:inline">Foto Fajar</span>
+        <span class="hidden sm:inline">Foto Sekolah</span>
       </button>
 
       <!-- Butang Papan Juara Kejohanan STEM -->
@@ -251,7 +256,7 @@
         class="stem-btn-3d px-3 sm:px-4 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-400 hover:to-orange-500 text-slate-950 font-stem text-xs sm:text-sm font-extrabold border-b-2 border-amber-700 shadow-md shadow-amber-500/30 flex items-center space-x-1.5"
       >
         <span>🏆</span>
-        <span>CARTA JUARA STEM</span>
+        <span>CARTA JUARA</span>
       </button>
 
       <!-- Kawalan Audio Sintetik -->
@@ -302,7 +307,7 @@
             MISI MEKANIK PINTAR
           </h2>
           <p class="text-xs sm:text-sm font-body text-slate-300 max-w-xl mx-auto">
-            Selesaikan 10 diagnosis mesin kompleks yang rosak dan 10 cabaran reka cipta sains di Tambunan!
+            Selesaikan 10 diagnosis mesin kompleks yang rosak dan 10 cabaran reka cipta sains di SK Kaingaran Tambunan!
           </p>
         </div>
 
@@ -403,7 +408,7 @@
               onclick="openLeaderboardModal()" 
               class="stem-btn-3d py-3 px-5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-stem font-bold text-xs border border-amber-500/50 border-b-4 border-b-amber-700 shadow-sm flex items-center justify-center space-x-1.5"
             >
-              <span>🏆 RANKING SEMASA</span>
+              <span>🏆 RANKING LIVE</span>
             </button>
           </div>
 
@@ -595,7 +600,7 @@
             <span class="text-3xl" id="summaryRankMedalEmoji">🏅</span>
             <div>
               <span class="text-[10px] font-stem font-bold text-amber-400 uppercase block">KEDUDUKAN KEJOHANAN STEM:</span>
-              <span id="summaryRankPositionText" class="font-stem text-sm sm:text-base font-extrabold text-white">Mengira ranking...</span>
+              <span id="summaryRankPositionText" class="font-stem text-sm sm:text-base font-extrabold text-white">Mengira ranking awan...</span>
             </div>
           </div>
           <button 
@@ -751,7 +756,7 @@
             onclick="openLeaderboardModal()" 
             class="stem-btn-3d flex-1 py-2.5 px-5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-stem font-bold text-sm border border-amber-500/40 border-b-4 border-b-amber-700 shadow-sm flex items-center justify-center space-x-1.5"
           >
-            <span>🏆 RANKING PENUH</span>
+            <span>🏆 RANKING LIVE PENUH</span>
           </button>
         </div>
 
@@ -794,7 +799,7 @@
           </div>
           <div>
             <h3 class="font-stem text-base sm:text-xl font-bold text-white tracking-wide">
-              CARTA JUARA KEJOHANAN STEM
+              CARTA JUARA LIVE STEM
             </h3>
             <span class="text-[11px] font-stem text-cyan-400 block">
               SK KAINGARAN TAMBUNAN • SAINS &amp; RBT TAHAP 2
@@ -823,8 +828,8 @@
 
       <!-- Kaki Modal -->
       <div class="pt-3 border-t border-slate-800 flex items-center justify-between text-xs font-stem">
-        <span class="text-slate-400 text-[11px]">
-          *Formula: Markah Tertinggi ➔ Masa Terpantas
+        <span class="text-slate-400 text-[11px] flex items-center gap-1">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Cloud Sync Aktif
         </span>
         <button 
           onclick="closeLeaderboardModal()" 
@@ -839,11 +844,15 @@
 
   <!-- ================= KAKI LAMAN STEM ================= -->
   <footer class="relative z-20 py-2 text-center text-[11px] font-stem text-cyan-300/80 bg-slate-950/80 backdrop-blur-md border-t border-cyan-500/20">
-    MAKMAL STEM SK KAINGARAN TAMBUNAN, SABAH • MESIN RINGKAS &amp; KOMPLEKS (RBT &amp; SAINS)
+    MAKMAL STEM SK KAINGARAN TAMBUNAN, SABAH • MESIN RINGKAS &amp; KOMPLEKS (RBT &amp; SAINS) • CLOUD SYNCED
   </footer>
 
   <!-- ================= JAVASCRIPT: LOGIK PERMAINAN & DATA ================= -->
   <script>
+    /* Global Variables for Leaderboard Sync */
+    window.competitionRecords = [];
+    window.playerNameGlobal = "";
+
     /* ================= KESAN BUNYI SINTETIK (WEB AUDIO API) ================= */
     let audioCtx = null;
     let isSoundMuted = false;
@@ -1133,7 +1142,7 @@
       }
     ];
 
-    /* ================= PETUNJUK VISUAL & 20 RAJAH VEKTOR STEM (SAIZ 3X3 CM) ================= */
+    /* ================= PETUNJUK VISUAL & 20 RAJAH VEKTOR STEM ================= */
     const questionVisualHints = [
       "Perhatikan bulatan merah bertanda '?' pada gegancu gear roda belakang basikal.",
       "Mata pemotong pada bilah gunting kelihatan rata dan tumpul, perlukan baji tajam.",
@@ -1346,26 +1355,21 @@
       if (modal) modal.classList.add('hidden');
     }
 
-    let studentClass = "6 Arif";
-    let competitionRecords = [
-      { id: "s1", name: "Alister Justin", studentClass: "6 Arif", score: 20, timeSeconds: 94, accuracy: 100, tp: "TP6" },
-      { id: "s2", name: "Fellycia Jaimin", studentClass: "6 Arif", score: 20, timeSeconds: 112, accuracy: 100, tp: "TP6" },
-      { id: "s3", name: "Alexius Peter", studentClass: "6 Cerdik", score: 19, timeSeconds: 120, accuracy: 95, tp: "TP6" },
-      { id: "s4", name: "Michelle Johnny", studentClass: "5 Arif", score: 18, timeSeconds: 128, accuracy: 90, tp: "TP6" },
-      { id: "s5", name: "Ryan Bradley", studentClass: "6 Cerdik", score: 17, timeSeconds: 105, accuracy: 85, tp: "TP5" },
-      { id: "s6", name: "Evangeline D.", studentClass: "5 Cerdik", score: 16, timeSeconds: 139, accuracy: 80, tp: "TP5" }
-    ];
-
     function getSortedLeaderboard() {
-      return [...competitionRecords].sort((a, b) => {
+      return [...window.competitionRecords].sort((a, b) => {
         if (b.score !== a.score) return b.score - a.score;
         return a.timeSeconds - b.timeSeconds;
       });
     }
 
     function recordStudentScore(record) {
-      competitionRecords.push(record);
-      renderLeaderboardUI();
+      if (typeof window.saveScoreToCloud === 'function') {
+        window.saveScoreToCloud(record);
+      } else {
+        // Fallback for offline mode
+        window.competitionRecords.push(record);
+        renderLeaderboardUI();
+      }
     }
 
     function openLeaderboardModal() {
@@ -1404,10 +1408,11 @@
           <div class="text-2xl sm:text-3xl mb-1">${medals[idx]}</div>
           <span class="text-xs font-stem font-bold text-white truncate w-full px-1">${item.name}</span>
           <span class="text-[10px] font-body text-cyan-400">${item.studentClass || '6 Arif'}</span>
-          <div class="w-full ${heights[idx]} rounded-xl border-2 flex flex-col items-center justify-center mt-1 shadow-lg shadow-cyan-500/10">
-            <span class="text-sm sm:text-base font-stem font-extrabold text-amber-400">${item.score}/20</span>
-            <span class="text-[10px] font-mono text-slate-400 font-bold">${formatTime(item.timeSeconds)}</span>
-            <span class="text-[9px] font-stem font-bold px-2 py-0.5 rounded-full bg-slate-950 border border-cyan-500/40 text-cyan-300 mt-1">#${ranks[idx]}</span>
+          <div class="w-full ${heights[idx]} rounded-xl border-2 flex flex-col items-center justify-center mt-1 shadow-lg shadow-cyan-500/10 relative overflow-hidden group">
+            <div class="absolute inset-0 bg-white/5 group-hover:bg-white/10 transition"></div>
+            <span class="text-sm sm:text-base font-stem font-extrabold text-amber-400 relative z-10">${item.score}/20</span>
+            <span class="text-[10px] font-mono text-slate-400 font-bold relative z-10">${formatTime(item.timeSeconds)}</span>
+            <span class="text-[9px] font-stem font-bold px-2 py-0.5 rounded-full bg-slate-950 border border-cyan-500/40 text-cyan-300 mt-1 relative z-10">#${ranks[idx]}</span>
           </div>
         `;
         podium.appendChild(col);
@@ -1415,8 +1420,11 @@
 
       // 2. Senarai Ranking Penuh
       list.innerHTML = '';
+      if (sorted.length === 0) {
+        list.innerHTML = '<div class="text-center p-4 text-slate-400 font-body text-xs">Belum ada rekod. Jadi yang pertama!</div>';
+      }
       sorted.forEach((item, idx) => {
-        const isCurrent = item.name.toLowerCase() === playerName.toLowerCase();
+        const isCurrent = item.name.toLowerCase() === window.playerNameGlobal.toLowerCase();
         const row = document.createElement('div');
         row.className = `p-2.5 sm:p-3 rounded-xl border-2 flex items-center justify-between text-xs transition ${
           isCurrent 
@@ -1456,8 +1464,11 @@
       // 3. Mini List di Tab
       if (miniList) {
         miniList.innerHTML = '';
+        if (sorted.length === 0) {
+          miniList.innerHTML = '<div class="text-slate-400 text-[10px] py-2">Tiada rekod lagi.</div>';
+        }
         sorted.slice(0, 5).forEach((item, idx) => {
-          const isCurrent = item.name.toLowerCase() === playerName.toLowerCase();
+          const isCurrent = item.name.toLowerCase() === window.playerNameGlobal.toLowerCase();
           const mRow = document.createElement('div');
           mRow.className = `p-2 rounded-lg border flex items-center justify-between text-xs ${isCurrent ? 'bg-cyan-950 border-cyan-400 font-bold' : 'bg-slate-900 border-slate-800'}`;
           mRow.innerHTML = `
@@ -1473,10 +1484,24 @@
           miniList.appendChild(mRow);
         });
       }
+      
+      // Update Summary Badge if summary screen is open
+      const rankPosText = document.getElementById('summaryRankPositionText');
+      const medalEmoji = document.getElementById('summaryRankMedalEmoji');
+      if (rankPosText && window.playerNameGlobal) {
+          const myRankIndex = sorted.findIndex(s => s.name.toLowerCase() === window.playerNameGlobal.toLowerCase());
+          if (myRankIndex !== -1) {
+            const place = myRankIndex + 1;
+            rankPosText.textContent = `Kedudukan Ke-${place} daripada ${sorted.length} Jurutera Cilik!`;
+            if (place === 1) medalEmoji.textContent = "🥇";
+            else if (place === 2) medalEmoji.textContent = "🥈";
+            else if (place === 3) medalEmoji.textContent = "🥉";
+            else medalEmoji.textContent = "🏅";
+          }
+      }
     }
 
-    /* ================= STATUS & PEMASA MISI STEM ================= */
-    let playerName = "";
+    let studentClass = "6 Arif";
     let currentIndex = 0;
     let score = 0;
     let streak = 0;
@@ -1564,10 +1589,10 @@
         return;
       }
       err.classList.add('hidden');
-      playerName = val;
+      window.playerNameGlobal = val;
       if (classSelect) studentClass = classSelect.value;
 
-      document.getElementById('hudStudentNameDisplay').textContent = playerName;
+      document.getElementById('hudStudentNameDisplay').textContent = window.playerNameGlobal;
       document.getElementById('hudStudentClassDisplay').textContent = studentClass;
 
       currentIndex = 0;
@@ -1627,15 +1652,7 @@
       if (hintText && questionVisualHints[index]) {
         hintText.textContent = questionVisualHints[index];
       }
-      const diagBadge = document.getElementById('diagramPartBadge');
-      if (diagBadge) {
-        diagBadge.textContent = `NOD #${index + 1} (${q.part === 1 ? 'BAHAGIAN 1' : 'BAHAGIAN 2'})`;
-      }
-      const diagCaption = document.getElementById('diagramCaptionText');
-      if (diagCaption) {
-        diagCaption.textContent = q.part === 1 ? 'Rajah Diagnostik: Komponen yang hilang/rosak' : 'Rajah Senario: Situasi cabaran harian';
-      }
-
+      
       document.getElementById('feedbackBoxContainer').classList.add('hidden');
       document.getElementById('nextQuestionBtn').classList.add('hidden');
 
@@ -1773,7 +1790,7 @@
 
       soundVictory();
 
-      document.getElementById('summaryStudentNameTxt').textContent = `${playerName} (${studentClass})`;
+      document.getElementById('summaryStudentNameTxt').textContent = `${window.playerNameGlobal} (${studentClass})`;
       document.getElementById('summaryTimeTakenTxt').textContent = formatTime(missionSeconds);
       document.getElementById('finalScoreVal').textContent = score;
 
@@ -1785,7 +1802,7 @@
       document.getElementById('finalB1Score').textContent = b1;
       document.getElementById('finalB2Score').textContent = b2;
 
-      document.getElementById('certStudentNameTag').textContent = `${playerName} (${studentClass})`;
+      document.getElementById('certStudentNameTag').textContent = `${window.playerNameGlobal} (${studentClass})`;
       document.getElementById('certScoreDisplay').textContent = `${score}/20`;
 
       const s1 = document.getElementById('starNode1');
@@ -1809,7 +1826,7 @@
         pill.className = "inline-flex items-center px-4 py-1.5 rounded-full font-stem text-xs sm:text-sm bg-emerald-950 text-emerald-300 border-2 border-emerald-400 shadow-sm mb-2 font-bold";
         pill.textContent = "TAHAP PENGUASAAN: TP6 (INOVATOR CEMERLANG 🌟)";
         document.getElementById('certTPDisplay').textContent = "TP6";
-        msg.textContent = `Luar biasa, ${playerName}! Anda menguasai prinsip sains fizik dan reka bentuk kejuruteraan 7 mesin ringkas dengan cemerlang di SK Kaingaran Tambunan!`;
+        msg.textContent = `Luar biasa, ${window.playerNameGlobal}! Anda menguasai prinsip sains fizik dan reka bentuk kejuruteraan 7 mesin ringkas dengan cemerlang di SK Kaingaran Tambunan!`;
       } else if (score >= 12) {
         masteryLevel = "TP5";
         setTimeout(() => s1.classList.add('scale-100', 'opacity-100'), 200);
@@ -1818,7 +1835,7 @@
         pill.className = "inline-flex items-center px-4 py-1.5 rounded-full font-stem text-xs sm:text-sm bg-cyan-950 text-cyan-300 border-2 border-cyan-400 shadow-sm mb-2 font-bold";
         pill.textContent = "TAHAP PENGUASAAN: TP5 (JURUTERA TERLATIH 👍)";
         document.getElementById('certTPDisplay').textContent = "TP5";
-        msg.textContent = `Syabas, ${playerName}! Kefahaman anda terhadap konsep daya dan mesin sangat kukuh. Boleh ulang uji nod yang terlepas untuk capai TP6!`;
+        msg.textContent = `Syabas, ${window.playerNameGlobal}! Kefahaman anda terhadap konsep daya dan mesin sangat kukuh. Boleh ulang uji nod yang terlepas untuk capai TP6!`;
       } else {
         masteryLevel = "TP3";
         setTimeout(() => s1.classList.add('scale-100', 'opacity-100'), 250);
@@ -1826,32 +1843,18 @@
         pill.className = "inline-flex items-center px-4 py-1.5 rounded-full font-stem text-xs sm:text-sm bg-amber-950 text-amber-300 border-2 border-amber-400 shadow-sm mb-2 font-bold";
         pill.textContent = "TAHAP PENGUASAAN: TP3 (PERLU PENGUKUHAN TEKNIKAL 📚)";
         document.getElementById('certTPDisplay').textContent = "TP3";
-        msg.textContent = `Teruskan latihan, ${playerName}! Lihat telemetri diagnostik di bawah untuk memperkukuh pemahaman fungsi tuas, skru, dan gear.`;
+        msg.textContent = `Teruskan latihan, ${window.playerNameGlobal}! Lihat telemetri diagnostik di bawah untuk memperkukuh pemahaman fungsi tuas, skru, dan gear.`;
       }
 
+      // Record to Cloud or Fallback
       recordStudentScore({
-        id: `stem_rec_${Date.now()}`,
-        name: playerName,
+        name: window.playerNameGlobal,
         studentClass: studentClass,
         score: score,
         timeSeconds: missionSeconds,
         accuracy: pct,
         tp: masteryLevel
       });
-
-      const sorted = getSortedLeaderboard();
-      const myRankIndex = sorted.findIndex(s => s.name.toLowerCase() === playerName.toLowerCase());
-      const rankPosText = document.getElementById('summaryRankPositionText');
-      const medalEmoji = document.getElementById('summaryRankMedalEmoji');
-
-      if (myRankIndex !== -1) {
-        const place = myRankIndex + 1;
-        rankPosText.textContent = `Kedudukan Ke-${place} daripada ${sorted.length} Jurutera Cilik!`;
-        if (place === 1) medalEmoji.textContent = "🥇";
-        else if (place === 2) medalEmoji.textContent = "🥈";
-        else if (place === 3) medalEmoji.textContent = "🥉";
-        else medalEmoji.textContent = "🏅";
-      }
 
       renderDiagnosticBars();
       renderBadgesLocker();
@@ -1957,12 +1960,12 @@
       else if (score < 17) tp = "TP4-TP5 (Jurutera Terlatih)";
 
       const sorted = getSortedLeaderboard();
-      const myRankIndex = sorted.findIndex(s => s.name.toLowerCase() === playerName.toLowerCase());
+      const myRankIndex = sorted.findIndex(s => s.name.toLowerCase() === window.playerNameGlobal.toLowerCase());
       const rankText = myRankIndex !== -1 ? `#${myRankIndex + 1} daripada ${sorted.length} peserta` : 'Tersedia';
 
       const txt = `[REKOD KEJOHANAN STEM & PBD - RBT & SAINS TAHAP 2]
 Sekolah: SEKOLAH KEBANGSAAN KAINGARAN TAMBUNAN, SABAH
-Nama Murid: ${playerName} (${studentClass})
+Nama Murid: ${window.playerNameGlobal} (${studentClass})
 Modul: Misi Mekanik Pintar (Tema STEM & Kejuruteraan)
 Kedudukan Kejohanan: ${rankText}
 Markah Keseluruhan: ${score}/20 (${pct}%)
@@ -1970,7 +1973,7 @@ Bahagian 1 (Kejuruteraan Mesin): ${b1}/10
 Bahagian 2 (Penyelesaian Senario): ${b2}/10
 Tahap Penguasaan: ${tp}
 Tempoh Makmal: ${formatTime(missionSeconds)}
-Status: SELESAI`;
+Status: SELESAI (Rekod Awan Disimpan)`;
 
       const tArea = document.createElement("textarea");
       tArea.value = txt;
@@ -2074,5 +2077,103 @@ Status: SELESAI`;
       initStemEnergyCanvas();
     });
   </script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { getFirestore, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+    const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-misi-mekanik-app';
+    const firebaseConfigStr = typeof __firebase_config !== 'undefined' ? __firebase_config : null;
+    
+    let db = null;
+    let auth = null;
+    let currentUser = null;
+
+    async function initFirebaseCloud() {
+      if (!firebaseConfigStr) return; // Ignore if no config provided by the system
+      
+      try {
+        const firebaseConfig = JSON.parse(firebaseConfigStr);
+        const app = initializeApp(firebaseConfig);
+        db = getFirestore(app);
+        auth = getAuth(app);
+
+        // 1. Authentication (Rule 3)
+        if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+          const userCredential = await signInWithCustomToken(auth, __initial_auth_token);
+          currentUser = userCredential.user;
+        } else {
+          const userCredential = await signInAnonymously(auth);
+          currentUser = userCredential.user;
+        }
+
+        if (currentUser) {
+          console.log("Cloud Sync Connected");
+          const syncIndicator = document.getElementById('cloudSyncIndicator');
+          if (syncIndicator) syncIndicator.classList.remove('hidden');
+          setupRealtimeLeaderboard();
+        }
+
+      } catch (error) {
+        console.error("Cloud Storage initialization failed:", error);
+      }
+    }
+
+    function setupRealtimeLeaderboard() {
+      if (!currentUser || !db) return;
+
+      // Rule 1: Strict Paths -> public/data/leaderboard
+      const leaderboardRef = collection(db, 'artifacts', appId, 'public', 'data', 'leaderboard');
+      
+      // Rule 2: Fetch all data natively and handle sorting in JS memory
+      onSnapshot(leaderboardRef, (snapshot) => {
+        const records = [];
+        snapshot.forEach((doc) => {
+          records.push({ ...doc.data(), id: doc.id });
+        });
+        
+        window.competitionRecords = records;
+        
+        // Refresh UI if the modal is open or summary screen is visible
+        if (typeof window.renderLeaderboardUI === 'function') {
+          window.renderLeaderboardUI();
+        }
+      }, (error) => {
+        console.error("Live sync error:", error);
+      });
+    }
+
+    // Attach to window so the standard script can call it
+    window.saveScoreToCloud = async (record) => {
+      if (!currentUser || !db) {
+        // Fallback to local memory if cloud fails
+        window.competitionRecords.push(record);
+        if (typeof window.renderLeaderboardUI === 'function') window.renderLeaderboardUI();
+        return;
+      }
+      
+      try {
+        const leaderboardRef = collection(db, 'artifacts', appId, 'public', 'data', 'leaderboard');
+        await addDoc(leaderboardRef, {
+          name: record.name,
+          studentClass: record.studentClass,
+          score: record.score,
+          timeSeconds: record.timeSeconds,
+          accuracy: record.accuracy,
+          tp: record.tp,
+          timestamp: Date.now()
+        });
+      } catch (error) {
+        console.error("Error saving score to cloud:", error);
+      }
+    };
+
+    initFirebaseCloud();
+  </script>import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+   
+   const supabaseUrl = 'https://hjuagiveapkqlcoblnrj.supabase.co/rest/v1/'
+   const supabaseKey = 'sb_publishable_R21lV4i2bJy9qQKfGcwtIw_6IPUWkAu'
+   const supabase = createClient(supabaseUrl, supabaseKey)
 </body>
 </html>
